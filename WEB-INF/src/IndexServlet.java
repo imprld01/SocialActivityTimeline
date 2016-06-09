@@ -25,19 +25,7 @@ public class IndexServlet extends HttpServlet{
 				String[] clubList=(String[])request.getAttribute("club");
 				eList = ep.eventSelect(eList,clubList);//get clubList to filt
 				
-				/*
-				for(int i=0;i<clubList.length;i++){
-					for(Event event : eList){
-						if(event.club.equals(clubList[i])){
-							
-							
-						}else{
-							
-							
-						}
-					}
-				}
-				*/
+				
 				/*******make json file to timeline.js，and send to jsp via request**/
 				String TLJsonFile = ep.toJson(eList);
 				request.setAttribute("TLJsonFile",TLJsonFile);

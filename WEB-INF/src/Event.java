@@ -72,7 +72,7 @@ public class Event {
 	return CTR;
     }
 
-    public void setCTR(INT aCTR) {
+    public void setCTR(int aCTR) {
 	this.CTR = aCTR;
     }
 

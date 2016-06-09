@@ -22,7 +22,7 @@ public class DataAnalysis{
 	
 	
 	
-	public ArrayList<Event> getHitRatio(ArrayList<Event> eList){
+	public ArrayList<Event> getHitRatio(ArrayList<Event> eList){//a function to find top10
 		ArrayList<int> hitArray = new ArrayList<int>();
 		ArrayList<Event> top10 = new ArrayList<Event>();
 		for(Event event:eList){
