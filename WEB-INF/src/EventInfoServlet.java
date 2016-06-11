@@ -23,7 +23,27 @@ public class EventInfoServlet extends HttpServlet{
 				if(action!=null){
 					ArrayList<Event> top10= new ArrayList<Event>();
 					top10 = da.getHitRatio(eList);
-					request.setAttribute("top10",top10);
+					/****convert top 10 list to .csv****/
+					String filePath = "top10.csv";
+					File file = new File(filePath);
+					if(!file.exists()){
+						file.getParentFile().mkdirs();
+						try {
+							file.createNewFile();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					FileWriter fw = new FileWriter("top10.csv");
+					fw.write("title,url,value\n");
+					for(Event event:top10){
+						fw.write("\""+event.getName()+"\",\"EventInfoServlet.do?id="+event.getId()+"\","+event.getCTR()+"\n");
+					}
+					fw.flush();
+					fw.close();
+
+					
+					//request.setAttribute("top10",top10);
 					RequestDispatcher view = request.getRequestDispatcher("top10.jsp");
 					view.forward(request,response); //next web
 				}
