@@ -47,5 +47,19 @@ public class DataAnalysis{
 		return list.get(k-1);
 	}
 	
-	public 
+	public ArrayList<Event> whatIParticipateIn(String me){
+		
+	}
+	
+	public Hashtable<Applier, Integer> relationDistanceTable(String me, ArrayList<Event> allMyEvents){
+		
+	}
+	
+	public RelationJsonPack RelationJsonPacker(Hashtable<Applier, Integer> table){
+		
+	}
+	
+	public void Relation2JsonFile(RelationJsonPack rjp){
+		
+	}
 }

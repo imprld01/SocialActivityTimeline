@@ -10,12 +10,13 @@ public class RelationServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		RequestDispatcher view = null;
-		String pwd = (String)request.getParameter("pwd");
+		DataAnalysis da = new DataAnalysis();
+		String kwd = (String)request.getParameter("kwd");
 		
-		String checkResult = ap.pwdCheck(pwd);
-		if(!checkResult.equals("0000"))
-			view = request.getRequestDispatcher("PostForm.jsp");
-		else view = request.getRequestDispatcher("Error.jsp");
+		if(kwd != null){
+			da.Relation2JsonFile(da.RelationJsonPacker(da.relationDistanceTable(kwd, da.whatIParticipateIn(kwd))));
+			view = request.getRequestDispatcher("Relation.jsp");
+		}else view = request.getRequestDispatcher("index.jsp");
 		
 		view.forward(request, response);
 	}
