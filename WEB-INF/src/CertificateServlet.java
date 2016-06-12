@@ -1,5 +1,7 @@
 package com.web;
 
+import java.io.IOException;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -10,7 +12,7 @@ public class CertificateServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		RequestDispatcher view = null;
-		AccountProcess ap = getServletContext().getAttribute("account");
+		AccountProcess ap = (AccountProcess)getServletContext().getAttribute("account");
 		String pwd = (String)request.getParameter("pws");
 		
 		String checkResult = ap.pwdCheck(pwd);
