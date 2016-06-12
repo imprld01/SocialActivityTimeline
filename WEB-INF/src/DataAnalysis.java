@@ -46,4 +46,6 @@ public class DataAnalysis{
 		}
 		return list.get(k-1);
 	}
+	
+	public 
 }
