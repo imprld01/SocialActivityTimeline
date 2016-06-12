@@ -13,7 +13,7 @@ public class CertificateServlet extends HttpServlet {
 		
 		RequestDispatcher view = null;
 		AccountProcess ap = (AccountProcess)getServletContext().getAttribute("account");
-		String pwd = (String)request.getParameter("pws");
+		String pwd = (String)request.getParameter("pwd");
 		
 		String checkResult = ap.pwdCheck(pwd);
 		if(!checkResult.equals("0000"))

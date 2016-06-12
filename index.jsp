@@ -22,7 +22,21 @@
 	</form>
 	
 	<!-- create event -->
-	<a href="CertificateServlet.do">我要辦活動</a>
+	<p><a href="CertificateServlet.do" name="h1">我要辦活動</a></p>
+	<button onclick="popup()">Try it</button>
+	<p id="pwd"></p>
+
+	<script>
+	function myFunction() {
+		var pwd = prompt("請輸入社團驗證碼", "");
+    
+		if (pwd != null) {
+			document.all("h1").innerText =
+			"CertificateServlet.do?pwd=" + pwd ;
+		}
+	}
+</script>
+	
 	
 	<!-- top 10 -->
 	<a href="EventInfoServlet.do?action=top10 ">Top 10</a>
