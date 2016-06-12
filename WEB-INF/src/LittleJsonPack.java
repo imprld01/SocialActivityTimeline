@@ -5,9 +5,9 @@ public class LittleJsonPack {
 	private String name;
 	private ArrayList<ChildJsonPack> children;
 	
-	public RelationJsonPack(String name, ChildJsonPack one) {
+	public LittleJsonPack(String name, ChildJsonPack one) {
 		
-		setName(id);
+		setName(name);
 		children = new ArrayList<ChildJsonPack>();
 		children.add(one);
 	}

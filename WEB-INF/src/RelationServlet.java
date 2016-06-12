@@ -11,11 +11,15 @@ public class RelationServlet extends HttpServlet {
 		
 		RequestDispatcher view = null;
 		DataAnalysis da = new DataAnalysis();
+		String fn = (String)getServletContext().getAttribute("flare");	// get servlet context attribute for the flare.json file (add listener when start to set the attribute).
 		String kwd = (String)request.getParameter("kwd");
 		
 		if(kwd != null){
-			da.Relation2JsonFile(da.RelationJsonPacker(da.relationDistanceTable(kwd, da.whatIParticipateIn(kwd))));
-			view = request.getRequestDispatcher("Relation.jsp");
+			 ArrayList<Event> myEvents = da.whatIParticipateIn(kwd);
+			 if(myEvents != null){
+				 da.Relation2JsonFile(da.RelationJsonPacker(da.relationDistanceTable(kwd, myEvents)), fn);
+				view = request.getRequestDispatcher("Relation.jsp");
+			}
 		}else view = request.getRequestDispatcher("index.jsp");
 		
 		view.forward(request, response);
