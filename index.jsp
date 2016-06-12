@@ -27,7 +27,7 @@
 	<p id="pwd"></p>
 
 	<script>
-	function myFunction() {
+	function popup() {
 		var pwd = prompt("請輸入社團驗證碼", "");
     
 		if (pwd != null) {
