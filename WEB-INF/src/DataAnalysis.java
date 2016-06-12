@@ -8,6 +8,7 @@ import java.util.*;
 import javax.servlet.*;
 
 public class DataAnalysis{
+	
 	public int[] getSexRatio(ArrayList<Apply> aList){
 		int sex[2];//0:boy, 1:girl
 		for(Apply apply:aList){
@@ -20,8 +21,6 @@ public class DataAnalysis{
 		return sex;
 	}
 	
-	
-	
 	public ArrayList<Event> getHitRatio(ArrayList<Event> eList){//a function to find top10
 		ArrayList<int> hitArray = new ArrayList<int>();
 		ArrayList<Event> top10 = new ArrayList<Event>();
@@ -33,6 +32,7 @@ public class DataAnalysis{
 		}
 		return top10;
 	}
+	
 	private int find(ArrayList<int> array, int k){
 		Arraylist<int> list = new ArrayList<int>();
 		for (int i = 0; i < array.size(); ++i){
@@ -46,7 +46,4 @@ public class DataAnalysis{
 		}
 		return list.get(k-1);
 	}
-	
-	
-
 }
