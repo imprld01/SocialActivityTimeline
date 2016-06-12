@@ -26,6 +26,16 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>RelationServlet</servlet-name>
+		<servlet-class>com.web.RelationServlet</servlet-class>
+	</servlet>
+        
+	<servlet-mapping>
+		<servlet-name>RelationServlet</servlet-name> 
+		<url-pattern>/Relation.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>InsertServlet</servlet-name>	
 		<servlet-class>com.web.InsertEventServlet</servlet-class>
 	</servlet>
