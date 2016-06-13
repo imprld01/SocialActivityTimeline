@@ -68,36 +68,34 @@ public class DataAnalysis{
 		return result;		
 	}
 	
-	public Hashtable<String, Integer> relationDistanceTable(String me, ArrayList<Event> allMyEvents){
+	public Hashtable<String, ArrayList<Event>> relationDistanceTable(ArrayList<Event> allMyEvents){
 		
-		boolean me_appear = false;
-		Hashtable<String, Integer> result = new Hashtable<String, Integer>();
+		Hashtable<String, ArrayList<Event>> result = new Hashtable<String, ArrayList<Event>>();
 		
 		for(Event e : allMyEvents){
 			ArrayList<Applier> allAppliers = e.getAllApplier();	// here would be error because of the method name in Event to get all the appliers.
 			for(Applier a : allAppliers){
 				String id = a.getNumber(); // here would be error because of the method name in Applier to get its id(or called number).
-				if(!id.equals(me)){
-					if(!result.containsKey(id)) result.put(id, 2);
-					else{
-						int new_value = result.get(id) + 2;
-						if(new_value > 20) new_value = 20;
-						result.put(id, new_value);
-					}
-				}else if(!me_appear){ result.put(id, 40); me_appear = true; }
+				ArrayList<Event> events;
+				if(!result.containsKey(id)) events = new ArrayList<Event>();
+				else events = result.get(id);
+				events.add(e);
+				result.put(id, events);
 			}
 		}
 		
 		return result;
 	}
 	
-	public RelationJsonPack RelationJsonPacker(Hashtable<String, Integer> table, String me){
+	public RelationJsonPack RelationJsonPacker(String me, Hashtable<String, ArrayList<Event>> table){
 		
 		ArrayList<LittleJsonPack> ljpList = new ArrayList<LittleJsonPack>();
-		LittleJsonPack ljp = new LittleJsonPack(me, new ChildJsonPack(me, table.get(me)));
-		ljpList.add(ljp); table.remove(me);
+		LittleJsonPack ljp = new LittleJsonPack(me, new ChildJsonPack(me, 40));
+		ljpList.add(ljp);
 		for(String key : table.keySet()){
-			ljp = new LittleJsonPack(key, new ChildJsonPack(key, table.get(key)));
+			int size = table.get(key).size() * 2;
+			if(size > 20) size = 20;
+			ljp = new LittleJsonPack(key, new ChildJsonPack(key, size));
 			ljpList.add(ljp);
 		}
 		

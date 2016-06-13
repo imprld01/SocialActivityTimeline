@@ -1,6 +1,8 @@
 package com.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Hashtable;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,9 +17,12 @@ public class RelationServlet extends HttpServlet {
 		String kwd = (String)request.getParameter("kwd");
 		
 		if(kwd != null){
-			 ArrayList<Event> myEvents = da.whatIParticipateIn(kwd);
-			 if(myEvents != null){
-				 da.Relation2JsonFile(da.RelationJsonPacker(da.relationDistanceTable(kwd, myEvents)), fn);
+			ArrayList<Event> myEvents = da.whatIParticipateIn(kwd);
+			if(myEvents != null){
+				Hashtable<String, ArrayList<Event>> table = da.relationDistanceTable(myEvents);
+				da.Relation2JsonFile(da.RelationJsonPacker(kwd, table), fn);
+				request.setAttribute("RelationTable", table);
+				request.setAttribute("TableKeySet", table.keySet());
 				view = request.getRequestDispatcher("Relation.jsp");
 			}
 		}else view = request.getRequestDispatcher("index.jsp");
