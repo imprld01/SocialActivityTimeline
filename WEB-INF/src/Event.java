@@ -1,135 +1,137 @@
 package com.model;
 
+import java.util.ArrayList;
+
 public class Event {
-	ArrayList<Apply> aList;
-	int id
-    String name;
-    int year;
-    int month;
-    int day;
-	int hour;
-	int minute;
-	String location;
-	String introduction;
-	String ImgPath;
-	int CTR;
+	private ArrayList<Applicant> applicantList;
+	private int id;
+    private String name;
+    private int year;
+    private int month;
+    private int day;
+    private int hour;
+    private int minute;
+    private String location;
+    private String introduction;
+    private String ImgPath;
+    private int CTR;
 
     public Event() {
-	aList = new ArrayList<Apply>();
-	id = 0;
-	name = "No name";
-	location = "#";
-	introduction = "No introduction";
-	imageUrl = "#";
-	year=0;
-    month=0;
-    day=0;
-	hour=0;
-	minute=0;
+        applicantList = new ArrayList<Applicant>();
+	    id = 0;
+	    name = "No name";
+	    location = "#";
+	    introduction = "No introduction";
+	    ImgPath = "#";
+	    year = 0;
+        month = 0;
+        day = 0;
+	    hour=0;
+	    minute = 0;
     }
 
-    public String getName() {
-	return name;
+    public ArrayList<Applicant> getApplicantList() {
+        return applicantList;
     }
 
-    public void setName(String aName) {
-	this.name = aName;
-    }
-	
-	public ArrayList<Apply> getApplyList() {
-	return applyList;
+    public void setApplicantList(ArrayList<Applicant> applicantList) {
+        this.applicantList = applicantList;
     }
 
-    public void setApplyList(ArrayList<Apply> aList) {
-	this.applyList = aList;
-    }
-
-    public String getLocation() {
-	return location;
-    }
-
-    public void setLocation(String aLocation) {
-	this.location = aLocation;
-    }
-	
-	public String getIntroduction() {
-	return introduction;
-    }
-
-    public void setIntroduction(String aIntro) {
-	this.introduction = aIntro;
-    }
-
-    public String getImgPath() {
-	return imgPath;
-    }
-
-    public void setImgPath(String aImgPath) {
-	this.imgPath = aImgPath;
-    }
-
-    public int getCTR() {
-	return CTR;
-    }
-
-    public void setCTR(int aCTR) {
-	this.CTR = aCTR;
-    }
-
-    public int getYear() {
-	return year;
-    }
-
-    public void setYear(int y) {
-	this.year = y;
-    }
-
-	public int getMonth() {
-	return month;
-    }
-
-    public void setMonth(int m) {
-	this.month = m;
-    }
-	
-	public int getDay() {
-	return day;
-    }
-
-    public void setDay(int d) {
-	this.day = d;
-    }
-	
-	public int getHour() {
-	return hour;
-    }
-
-    public void setHour(int h) {
-	this.hour = h;
-    }
-	
-	public int getMinute() {
-	return minute;
-    }
-
-    public void setMinute(int m) {
-	this.minute = m;
-    }
-	
-	public int getId() {
-	return id;
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {
-	this.id = id;
+        this.id = id;
     }
-	
-	
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public String getImgPath() {
+        return ImgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        ImgPath = imgPath;
+    }
+
+    public int getCTR() {
+        return CTR;
+    }
+
+    public void setCTR(int CTR) {
+        this.CTR = CTR;
+    }
+
     @Override
     public String toString() {
 	return "Event [id=" + id + ", name=" + name
 		+ ", year=" + year + ", month=" + month + ", day="
 		+ day + ", hour=" + hour + ", minute=" + minute +", location=" +location 
-		+ ", introduction=" + introduction +", imgPath="+imgPath+ ", CTR="+CTR+"]";
+		+ ", introduction=" + introduction +", imgPath=" + ImgPath + ", CTR=" + CTR + "]";
     }
+
 }

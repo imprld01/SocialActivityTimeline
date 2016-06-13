@@ -1,5 +1,8 @@
 package com.web;
 
+import com.model.DataAnalysis;
+import com.model.Event;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;

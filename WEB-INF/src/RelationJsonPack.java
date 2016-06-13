@@ -1,11 +1,13 @@
 package com.model;
 
+import java.util.ArrayList;
+
 public class RelationJsonPack {
 
 	private String name;
-	private ArrayList<LittleJsonPack> children;
+	private ArrayList<com.model.LittleJsonPack> children;
 	
-	public RelationJsonPack(String name, ArrayList<LittleJsonPack> one) {
+	public RelationJsonPack(String name, ArrayList<com.model.LittleJsonPack> one) {
 		
 		setName(name);
 		setChild(one);
