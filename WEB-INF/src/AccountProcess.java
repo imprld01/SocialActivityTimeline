@@ -16,7 +16,7 @@ public class AccountProcess {
 	private Scanner input;
 	private String fileName;
 	private ArrayList<Account> accountArray;
-    private Hashtable<String, String> accountTable;
+	private Hashtable<String, String> accountTable;
 	
 	public AccountProcess(String fileName) {
 		
