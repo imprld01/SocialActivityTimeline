@@ -36,7 +36,7 @@
 								${event.name}<br>
 								<c:set var = "total" value = "theCount" scope = "request" />
 							</c:forEach>
-						<td>
+						</td>
 						<td>${total}</td>
 					</tr>
 				</c:forEach>
