@@ -5,16 +5,16 @@ import java.util.Hashtable;
 
 public class DataAnalysis{
 
-	public double getSexRatio(ArrayList<Applicant> applicantList){
-		int boy = 0, girl = 0;
+	public int[] getSexRatio(ArrayList<Applicant> applicantList){
+		int sex[] = new int[2];
 		for(Applicant applicant : applicantList){
 			if(applicant.getSex().equals(Sex.MALE)){
-				boy++;
+				sex[0]++;
 			}else{
-				girl++;
+				sex[1]++;
 			}
 		}
-		return boy/girl;
+		return sex;
 	}
 	
 	

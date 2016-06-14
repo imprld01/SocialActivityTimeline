@@ -51,7 +51,7 @@
         {text: "<%=list.get(6).getTitle()%>", count: "<%=list.get(6).getCTR()%>"},
         {text: "<%=list.get(7).getTitle()%>", count: "<%=list.get(7).getCTR()%>"},
         {text: "<%=list.get(8).getTitle()%>", count: "<%=list.get(8).getCTR()%>"},
-		{text: "<%=list.get(8).getTitle()%>", count: "<%=list.get(9).getCTR()%>"},
+		{text: "<%=list.get(9).getTitle()%>", count: "<%=list.get(9).getCTR()%>"},
       ],
       eval: function (item) {return item.count;},
       classed: function (item) {return item.text.split(" ").join("");}
