@@ -84,7 +84,7 @@ public class ApplierProcess{
 	}
 	public void WriteApplier(Applicant applicant)throws IOException{
 		FileWriter fw = new FileWriter(new File(fileName), true);
-		fw.write(applier2JsonStr(appl));
+		fw.write(applier2JsonStr(applicant));
 		fw.close();
 	}
 	public String account2JsonStr(Applicant applicant) {
