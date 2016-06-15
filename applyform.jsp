@@ -10,13 +10,13 @@
 	<form method="GET" action="applyServlet.do">
 	
 	    Name:<br>
-	    <input type="text" name="name"</br>
+	    <input type="hidden" name="name"</br>
 		Grade:<br>
-        <input type="text" name="grade"</br>
+        <input type="hidden" name="grade"</br>
 		Number:<br>
-        <input type="text" name="number"</br>
+        <input type="hidden" name="number"</br>
 		Sex:<br>
-        <input type="text" name="sex"</br>
+        <input type="hidden" name="sex"</br>
 		
 	<input type="sumbit" name="next" value="Sumbit">
 	</form>
