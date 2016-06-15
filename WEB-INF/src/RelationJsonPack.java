@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class RelationJsonPack {
 
 	private String name;
-	private ArrayList<com.model.LittleJsonPack> children;
+	private ArrayList<LittleJsonPack> children;
 	
-	public RelationJsonPack(String name, ArrayList<com.model.LittleJsonPack> one) {
+	public RelationJsonPack(String name, ArrayList<LittleJsonPack> one) {
 		
 		setName(name);
 		setChild(one);
@@ -25,7 +25,7 @@ public class RelationJsonPack {
 		this.name = name;
 	}
 	
-	public void setChild(String child) {
+	public void setChild(ArrayList<LittleJsonPack> child) {
 		this.child = child;
 	}
 }

@@ -19,8 +19,6 @@ public class DataAnalysis{
 		return sex;
 	}
 	
-	
-	
 	public ArrayList<Event> getHitRatio(ArrayList<Event> eList){
 		ArrayList<Integer> hitArray = new ArrayList<Integer>();
 		ArrayList<Event> top10 = new ArrayList<Event>();
@@ -32,6 +30,7 @@ public class DataAnalysis{
 		}
 		return top10;
 	}
+	
 	private int find(ArrayList<Integer> array, int k){
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		for (int i = 0; i < array.size(); ++i){
@@ -45,7 +44,6 @@ public class DataAnalysis{
 		}
 		return list.get(k-1);
 	}
-
 
 	public ArrayList<Event> whatIParticipateIn(String kwd) {
 		ArrayList<Event> result = new ArrayList<Event>();
@@ -81,8 +79,6 @@ public class DataAnalysis{
 		
 		return result;
 	}
-	
-	
 
 	public RelationJsonPack RelationJsonPacker(String me, Hashtable<String, ArrayList<Event>> table){
 		ArrayList<LittleJsonPack> ljpList = new ArrayList<LittleJsonPack>();
@@ -94,6 +90,8 @@ public class DataAnalysis{
 			ljp = new LittleJsonPack(key, new ChildJsonPack(key, size));
 			ljpList.add(ljp);
 		}
+		
+		return new RelationJsonPack(me, ljpList);
 	}
 
 	public void Relation2JsonFile(RelationJsonPack rjp, String fileName) throws IOException {
