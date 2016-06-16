@@ -82,16 +82,32 @@ public class ApplierProcess{
 		
 		return apply;
 	}
+	
 	public void WriteApplier(Applicant applicant)throws IOException{
 		FileWriter fw = new FileWriter(new File(fileName), true);
 		fw.write(applier2JsonStr(applicant));
 		fw.close();
 	}
+	
 	public String account2JsonStr(Applicant applicant) {
 		
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(applicant);
 		
 		return jsonStr;
+	}
+	
+	public ArrayList<Event> getYourEvent(String id){
+		ArrayList<Event> activity = new ArrayList<Event>();
+		EventProcess ep = (EventProcess)getServletContext().getAttribute("event");
+		ArrayList<Event> allEvents = ep.getEventList();
+		
+		for(Event event:allEvents){
+			if((id.equals(Event.id)==true)
+			{
+				activity.add(event);
+			}
+		}
+		return activity;
 	}
 }
