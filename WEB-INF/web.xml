@@ -67,7 +67,7 @@
 	
 	
     <welcome-file-list>
-        <welcome-file>IndexServlet.do</welcome-file>
+        <welcome-file>Index.do</welcome-file>
     </welcome-file-list>
  
 
