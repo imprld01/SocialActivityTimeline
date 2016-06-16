@@ -71,7 +71,7 @@
 			
 	<!-- Banner -->
 			<section id="banner">
-				<h2>活動抓抓</h2>
+				<a href = "Index.do"><h2 style = "background-color: black; padding: 15px;">活動抓抓</h2></a>
 				<p>English Name Here</p>
 				<p>- 活動串聯你我他 彼此距離不下線 -</p>
 			</section>		
@@ -131,11 +131,11 @@
 					<div class="container">
 						<header class="major">
 							<h2>羈絆抓抓</h2>
-							<p>還是在茫茫人海中追尋那個他/她嗎?</p>
+							<p>還在茫茫人海中追尋那個他/她嗎?</p>
 							<p>讓我們幫你找出與你志趣相投的人吧!</p>
 						</header>
 						<ul class="actions">
-							<li><a href="#" class="button special big">Try It</a></li>
+							<li><a href="#" class="button special big">Here We Go !</a></li>
 						</ul>
 					</div>
 				</section>
