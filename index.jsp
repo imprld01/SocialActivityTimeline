@@ -97,7 +97,7 @@
 					<label for="priority-high">休閒娛樂</label>
 					<input type="checkbox" id="priority-extraHigh" name="club" value="升學就業">
 					<label for="priority-extraHigh">升學就業</label><br>
-					<input type="submit" value="確定" class="special" />
+					<input type="submit" value="篩選" class="special" />
 				</div>
 			</div>
 		</form>
