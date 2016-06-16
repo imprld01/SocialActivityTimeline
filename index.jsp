@@ -72,7 +72,8 @@
 	<!-- Banner -->
 			<section id="banner">
 				<h2>活動抓抓</h2>
-				<p>所有活動一網打盡!</p>
+				<p>English Name Here</p>
+				<p>- 活動串聯你我他 彼此距離不下線 -</p>
 			</section>		
 			
 	<!--club filter-->
@@ -130,7 +131,8 @@
 					<div class="container">
 						<header class="major">
 							<h2>羈絆抓抓</h2>
-							<p>在這裡找到和你志趣相投的人</p>
+							<p>還是在茫茫人海中追尋那個他/她嗎?</p>
+							<p>讓我們幫你找出與你志趣相投的人吧!</p>
 						</header>
 						<ul class="actions">
 							<li><a href="#" class="button special big">Try It</a></li>
