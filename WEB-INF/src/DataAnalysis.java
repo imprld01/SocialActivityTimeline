@@ -46,14 +46,15 @@ public class DataAnalysis{
 	}
 
 	public ArrayList<Event> whatIParticipateIn(String kwd) {
+		
 		ArrayList<Event> result = new ArrayList<Event>();
 		EventProcess ep = (EventProcess)getServletContext().getAttribute("event");
 		
-		ArrayList<Event> allEvents = ep.getAllEvents();	// here would be error because of the method name in EventProcess to get all the events.
+		ArrayList<Event> allEvents = ep.getEventList();
 		for(Event e : allEvents){
-			ArrayList<Applier> allAppliers = e.getAllApplier();	// here would be error because of the method name in Event to get all the appliers.
+			ArrayList<Applier> allAppliers = e.getApplicantList();
 			for(Applier a : allAppliers){
-				if(a.getNumber().equals(me)){ // here would be error because of the method name in Applier to get its id(or called number).
+				if(a.getNumber().equals(me)){
 					result.add(e); break; 
 				}
 			}
@@ -63,12 +64,13 @@ public class DataAnalysis{
 	}
 
 	public Hashtable<String, ArrayList<Event>> relationDistanceTable(ArrayList<Event> allMyEvents){
+		
 		Hashtable<String, ArrayList<Event>> result = new Hashtable<String, ArrayList<Event>>();
 		
 		for(Event e : allMyEvents){
-			ArrayList<Applier> allAppliers = e.getAllApplier();	// here would be error because of the method name in Event to get all the appliers.
+			ArrayList<Applier> allAppliers = e.getApplicantList();
 			for(Applier a : allAppliers){
-				String id = a.getNumber(); // here would be error because of the method name in Applier to get its id(or called number).
+				String id = a.getNumber();
 				ArrayList<Event> events;
 				if(!result.containsKey(id)) events = new ArrayList<Event>();
 				else events = result.get(id);
@@ -81,15 +83,21 @@ public class DataAnalysis{
 	}
 
 	public RelationJsonPack RelationJsonPacker(String me, Hashtable<String, ArrayList<Event>> table){
+		
+		int max_value = 0;
+		LittleJsonPack ljp;
 		ArrayList<LittleJsonPack> ljpList = new ArrayList<LittleJsonPack>();
-		LittleJsonPack ljp = new LittleJsonPack(me, new ChildJsonPack(me, 40));
-		ljpList.add(ljp);
+		
 		for(String key : table.keySet()){
 			int size = table.get(key).size() * 2;
-			if(size > 20) size = 20;
+			if(size > max_value) max_value = size;
 			ljp = new LittleJsonPack(key, new ChildJsonPack(key, size));
 			ljpList.add(ljp);
 		}
+		
+		ChildJsonPack temp_me = new ChildJsonPack(me, max_value + 20);
+		ljp = new LittleJsonPack(me, temp_me);
+		ljpList.add(ljp);
 		
 		return new RelationJsonPack(me, ljpList);
 	}
