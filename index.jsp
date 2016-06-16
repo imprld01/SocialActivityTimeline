@@ -22,12 +22,8 @@
 		</noscript>
 		<!--時間軸排版-->
 		<style>
-			.tl-text-content {
-				max-width: 80%;
-				min-width: 120px;
-				vertical-align: middle;
-				font-size:150%;
-				
+			.tl-text {
+				font-family: 微軟正黑體;
 			}
 		</style>
 	</head>
@@ -38,6 +34,10 @@
 				<h1><strong><a href="#">Produced</a></strong> by team 7 </h1>
 				<nav id="nav">
 					<ul>
+					
+						<!-- top 10 -->
+						<li><a href="EventInfoServlet.do?action=top10 ">Top 10</a></li>
+						
 						<!-- create event -->
 						<li><a href="CertificateServlet.do" name="h1" onclick="popup()">我要辦活動</a></li>
 							<script>
@@ -64,9 +64,7 @@
 								}
 							}
 							</script>
-						<!-- top 10 -->
-						<li><a href="EventInfoServlet.do?action=top10 ">Top 10</a></li>
-							
+
 					</ul>
 				</nav>
 			</header>
@@ -85,7 +83,7 @@
 	
 	<section>
 		
-		<form method="get" action="/IndexServlet.do">
+		<form method="get" action="/IndexServlet.do" style = "background-color: lightgray; padding: 50px; padding-bottom: 65px;">
 			<br><div class="row uniform 100%">
 				
 				<div class="6u$ 12u$(xlarge)" align="center">
@@ -103,7 +101,6 @@
 			</div>
 		</form>
 	</section>
-	<hr>
 	
 	
 	<!-- make timeline -->
