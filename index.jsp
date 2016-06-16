@@ -87,15 +87,15 @@
 			<br><div class="row uniform 100%">
 				
 				<div class="6u$ 12u$(xlarge)" align="center">
-				<h3>請選擇活動分類</h3>
-					<input type="checkbox" id="priority-low" name="club" value="運動比賽" checked>
+					<h3>請選擇活動分類</h3>
+					<input type="checkbox" id="priority-low" name="club" value="運動比賽">
 					<label for="priority-low">運動比賽</label>
 					<input type="checkbox" id="priority-normal" name="club" value="音樂藝術">
 					<label for="priority-normal">音樂藝術</label>
 					<input type="checkbox" id="priority-high" name="club" value="休閒娛樂">
 					<label for="priority-high">休閒娛樂</label>
 					<input type="checkbox" id="priority-extraHigh" name="club" value="升學就業">
-					<label for="priority-extraHigh">升學就業</label>
+					<label for="priority-extraHigh">升學就業</label><br>
 					<input type="submit" value="確定" class="special" />
 				</div>
 			</div>
