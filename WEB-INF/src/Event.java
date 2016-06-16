@@ -3,9 +3,11 @@ package com.model;
 import java.util.ArrayList;
 
 public class Event {
+	
 	private ArrayList<Applicant> applicantList;
 	private int id;
     private String name;
+	private String preview;
     private int year;
     private int month;
     private int day;
@@ -28,6 +30,19 @@ public class Event {
         day = 0;
 	    hour=0;
 	    minute = 0;
+    }
+	
+	public Event(int id,String aName,String aPre,String anIntro,String anImg, int y,int m,int d,int h, int min) {
+        this.applicantList = new ArrayList<Applicant>();
+	    this.name = aName;
+		this.preview = aPre;
+	    this.introduction = anIntro;
+	    this.ImgPath = anImg;
+	    this.year = y;
+        this.month = m;
+        this.day = d;
+	    this.hour=h;
+	    this.minute = min;
     }
 
     public ArrayList<Applicant> getApplicantList() {
@@ -133,5 +148,6 @@ public class Event {
 		+ day + ", hour=" + hour + ", minute=" + minute +", location=" +location 
 		+ ", introduction=" + introduction +", imgPath=" + ImgPath + ", CTR=" + CTR + "]";
     }
+	
 
 }

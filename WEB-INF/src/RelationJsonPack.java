@@ -26,6 +26,6 @@ public class RelationJsonPack {
 	}
 	
 	public void setChild(ArrayList<LittleJsonPack> child) {
-		this.child = child;
+		this.children = child;
 	}
 }

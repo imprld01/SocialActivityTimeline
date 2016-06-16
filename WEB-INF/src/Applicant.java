@@ -13,14 +13,7 @@ public class Applicant {
     private String grade;
     private String number;
     private Sex sex;
-	
-	public Applicant(String name,String  grade, String number, Sex sex){
-		setName(name);
-		setGrade(grade);
-		setNumber(number);
-		setSex(sex);
-	}
-	
+
     public String getName() {
         return name;
     }
