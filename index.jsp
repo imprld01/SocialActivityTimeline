@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	
 	<title>活動抓抓</title>	
 		<meta http-equiv="Content-Type" content="text/html"; charset = "utf-8">
 		<meta name="description" content="" />
@@ -22,17 +23,19 @@
 		<!--時間軸排版-->
 		<style>
 			.tl-text-content {
-				max-width: 50%;
+				max-width: 80%;
 				min-width: 120px;
 				vertical-align: middle;
+				font-size:150%;
+				
 			}
 		</style>
 	</head>
 	
-	<body class="landing">
+	<body class="landing" style="font-family: 微軟正黑體;">
 	<!-- Header -->
 			<header id="header" class="alt">
-				<h1><strong><a href="#">Produced</a></strong> by team 7th </h1>
+				<h1><strong><a href="#">Produced</a></strong> by team 7 </h1>
 				<nav id="nav">
 					<ul>
 						<!-- create event -->
@@ -48,8 +51,8 @@
 							}
 							</script>
 					
-						<!-- relationship -->
-						<li><a href="RelationServlet.do" name="h2" onclick="pop2()">羈絆抓抓</a></li>
+						<!-- relationship --
+						<li><a href="RelationServlet.do" name="h2" onclick="pop2()">羈絆抓抓</a></li>-->
 
 							<script>
 							function pop2() {
@@ -79,12 +82,13 @@
 	音樂藝術->海洋之星、相聲瓦舍、畢業演唱會
 	休閒娛樂->資工之夜、淨灘活動、棉花糖情人節
 	升學就業->企業實習說明會、履歷撰寫教學演講-->
-			<section>
+	
+	<section>
 		
 		<form method="get" action="/IndexServlet.do">
-			<div class="row uniform 50%">
+			<br><div class="row uniform 100%">
 				
-				<div class="6u$ 12u$(xsmall)">
+				<div class="6u$ 12u$(xlarge)" align="center">
 				<h3>請選擇活動分類</h3>
 					<input type="checkbox" id="priority-low" name="club" value="運動比賽" checked>
 					<label for="priority-low">運動比賽</label>
@@ -99,7 +103,7 @@
 			</div>
 		</form>
 	</section>
-	
+	<hr>
 	
 	
 	<!-- make timeline -->
@@ -107,14 +111,36 @@
     <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
     <!-- 2 -->
     <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
-    <div id='timeline-embed' style="width: 100%; height: 600px"></div>
+    <div id='timeline-embed' style="width: 100%; height: 900px"></div>
     <!-- 3 -->
     <script type="text/javascript">
-	var obj = <%=(String)request.getAttribute("TLJsonFile")%>;						
-    window.timeline = new TL.Timeline('timeline-embed', obj);
+	var obj = <%=(String)request.getAttribute("TLJsonFile")%>;		
+		
+		var additionalOptions = {
+            start_at_end: true,
+            timenav_height: 200
+          }
+		  
+    window.timeline = new TL.Timeline('timeline-embed', obj,additionalOptions);
 	</script>
 	
 	
+	
+	
+	
+	<!-- top10 -->
+				<section id="four" class="wrapper style3 special">
+					<div class="container">
+						<header class="major">
+							<h2>羈絆抓抓</h2>
+							<p>在這裡找到和你志趣相投的人</p>
+						</header>
+						<ul class="actions">
+							<li><a href="#" class="button special big">Try It</a></li>
+						</ul>
+					</div>
+				</section>
+				
 	<!-- Editors -->
 				<section id="three" class="wrapper style2 special">
 					<div class="container">
@@ -167,32 +193,18 @@
 					</div>
 				</section>
 	
-	
-	
-	
-	<!-- top10 -->
-				<section id="four" class="wrapper style3 special">
-					<div class="container">
-						<header class="major">
-							<h2>羈絆抓抓</h2>
-							<p>在這裡找到和你志趣相投的人</p>
-						</header>
-						<ul class="actions">
-							<li><a href="#" class="button special big">Try It</a></li>
-						</ul>
-					</div>
-				</section>
+				
 				
 	<!-- Footer -->
-			<footer id="footer">
+			<footer id="footer" style="background-color:#D6D6D6">
 				<div class="container">
 					<ul class="icons">
-						<li><a href="#" class="icon fa-facebook"></a></li>
-						<li><a href="#" class="icon fa-twitter"></a></li>
-						<li><a href="#" class="icon fa-instagram"></a></li>
+						<li><a href="https://www.facebook.com/" class="icon fa-facebook"></a></li>
+						<li><a href="https://twitter.com/" class="icon fa-twitter"></a></li>
+						<li><a href="https://plus.google.com/" class="icon fa-instagram"></a></li>
 					</ul>
 					<ul class="copyright">
-						<li>&copy; Untitled</li>
+						<li>&copy; D3js</li>
 						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
 						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
 					</ul>
