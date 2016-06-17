@@ -1,7 +1,11 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Hashtable;
+import java.util.Map;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -45,6 +49,45 @@ public class DataAnalysis{
 		return list.get(k-1);
 	}
 
+	public Hashtable<Applicant, Integer> calRelationScoreTable(ArrayList<Event> master, ArrayList<Event> eventFilter){
+		
+	}
+	
+	public ArrayList<Map.Entry<Applicant, Integer>> sortRlationTable(Hashtable<Applicant, Integer> t){
+		
+		ArrayList<Map.Entry<Applicant, Integer>> l = new ArrayList<Map.Entry<Applicant, Integer>>(t.entrySet());
+		Collections.sort(l, new Comparator<Map.Entry<Applicant, Integer>>(){
+			public int compare(Map.Entry<Applicant, Integer> o1, Map.Entry<Applicant, Integer> o2) {
+				return o2.getValue().compareTo(o1.getValue());
+			}
+		});
+		
+		return l;
+    }
+	
+	public String RelationAnalysis(Hashtable<Applicant, Integer> table){
+		
+		ArrayList<RelationLink> rls = new ArrayList<RelationLink>();
+		
+		
+		
+		return prepareRelationJson_BadMethod(rls);		
+	}
+	
+	public String prepareRelationJson_BadMethod(ArrayList<RelationLink> allRelations){
+		
+		String result = "{container: document.getElementById('cy'),boxSelectionEnabled: false,autounselectify: true,layout: {name: 'dagre'},style: [{selector: 'node',style: {'content': 'data(id)','text-opacity': 0.5,'text-valign': 'center','text-halign': 'right','background-color': '#11479e'}},{selector: 'edge',style: {'width': 4,'target-arrow-shape': 'triangle','line-color': '#9dbaea','target-arrow-color': '#9dbaea','curve-style': 'bezier'}}],elements: {nodes: [";
+		
+		//add nodes
+		
+		result += "],edges: [";
+		
+		//add edges
+		
+		result += "]},}";
+		return result;		
+	}
+	
 	public ArrayList<Event> whatIParticipateIn(String kwd) {
 		
 		ArrayList<Event> result = new ArrayList<Event>();
@@ -62,7 +105,8 @@ public class DataAnalysis{
 		
 		return result;		
 	}
-
+	
+	/*
 	public Hashtable<String, ArrayList<Event>> relationDistanceTable(ArrayList<Event> allMyEvents){
 		
 		Hashtable<String, ArrayList<Event>> result = new Hashtable<String, ArrayList<Event>>();
@@ -112,4 +156,5 @@ public class DataAnalysis{
 		fw.write(jsonStr);
 		fw.close();
 	}
+	*/
 }
