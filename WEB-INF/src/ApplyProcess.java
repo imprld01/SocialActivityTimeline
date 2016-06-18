@@ -97,9 +97,8 @@ public class ApplierProcess{
 		return jsonStr;
 	}
 	
-	public ArrayList<Event> getYourEvent(String id){
+	public ArrayList<Event> getYourEvent(EventProcess ep,String id){
 		ArrayList<Event> activity = new ArrayList<Event>();
-		EventProcess ep = (EventProcess)getServletContext().getAttribute("event");
 		ArrayList<Event> allEvents = ep.getEventList();
 		
 		for(Event event:allEvents){
