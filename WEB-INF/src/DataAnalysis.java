@@ -159,8 +159,8 @@ public class DataAnalysis{
 		
 		ArrayList<Event> allEvents = ep.getEventList();
 		for(Event e : allEvents){
-			ArrayList<Applier> allAppliers = e.getApplicantList();
-			for(Applier a : allAppliers){
+			ArrayList<Applicant> allAppliers = e.getApplicantList();
+			for(Applicant a : allAppliers){
 				if(a.getNumber().equals(me)){
 					result.add(e); break; 
 				}
