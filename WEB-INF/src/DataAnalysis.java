@@ -49,8 +49,36 @@ public class DataAnalysis{
 		return list.get(k-1);
 	}
 
-	public Hashtable<Applicant, Integer> calRelationScoreTable(ArrayList<Event> master, ArrayList<Event> eventFilter){
+	public Hashtable<Applicant, ArrayList<Event>> calWhoAndWhoseEvent(ApplyProcess ap, ArrayList<Event> master, ArrayList<Event> eventFilter){
 		
+		ArrayList<String> myEventType = new ArrayList<String>();
+		for(Event e : master){
+			String thetype = e.getType();
+			if(!myEventType.contains(thetype)) myEventType.add(thetype);
+		}
+		
+		Hashtable<Applicant, ArrayList<Event>> table = new Hashtable<Applicant, ArrayList<Event>>();
+		for(Event e : master){
+			if(eventFilter.contains(e)) continue;
+			ArrayList<Applicant> applicants = e.getApplicantList();
+			for(Applicant a : applicants){
+				ArrayList<Event> value = new ArrayList<Event>();
+				ArrayList<Event> yourevents = ap.getYourEvents(a.getNumber());
+				for(Event y : yourevents) if(myEventType.contains(y.getType())) value.add(y);
+				table.put(a, value);
+			}
+		}
+		
+		return table;
+	}
+	
+	public Hashtable<Applicant, Integer> tableConvert(Hashtable<Applicant, ArrayList<Event>> table){
+		
+		Hashtable<Applicant, ArrayList<Event>> result = new Hashtable<Applicant, ArrayList<Event>>();
+		
+		for(Applicant a : table.keySet()) result.put(a, table.get(a).size());
+		
+		return result;
 	}
 	
 	public ArrayList<Map.Entry<Applicant, Integer>> sortRlationTable(Hashtable<Applicant, Integer> t){
@@ -65,96 +93,84 @@ public class DataAnalysis{
 		return l;
     }
 	
-	public String RelationAnalysis(Hashtable<Applicant, Integer> table){
+	public String RelationAnalysis(ApplyProcess ap, String kwd, ArrayList<Event> mainevents, Hashtable<Applicant, ArrayList<Event>> table){
 		
 		ArrayList<RelationLink> rls = new ArrayList<RelationLink>();
+		ArrayList<String> elements = new ArrayList<String>();
+		elements.add(kwd);
 		
+		Hashtable<Applicant, ArrayList<Event>> maintable = this.calWhoAndWhoseEvent(ap, mainevents, new ArrayList<Event>());
 		
+		ArrayList<Map.Entry<Applicant, Integer>> mainArray = sortRlationTable(tableConvert(maintable));
+		for(int i = 0; i < 5; ++i){
+			Map.Entry<Applicant, Integer> pair = mainArray.get(i);
+			Applicant akey = pair.getKey();
+			table.put(akey, maintable.get(akey));
+		}
 		
-		return prepareRelationJson_BadMethod(rls);		
-	}
-	
-	public String prepareRelationJson_BadMethod(ArrayList<RelationLink> allRelations){
-		
-		String result = "{container: document.getElementById('cy'),boxSelectionEnabled: false,autounselectify: true,layout: {name: 'dagre'},style: [{selector: 'node',style: {'content': 'data(id)','text-opacity': 0.5,'text-valign': 'center','text-halign': 'right','background-color': '#11479e'}},{selector: 'edge',style: {'width': 4,'target-arrow-shape': 'triangle','line-color': '#9dbaea','target-arrow-color': '#9dbaea','curve-style': 'bezier'}}],elements: {nodes: [";
-		
-		//add nodes
-		
-		result += "],edges: [";
-		
-		//add edges
-		
-		result += "]},}";
-		return result;		
-	}
-	
-	public ArrayList<Event> whatIParticipateIn(String kwd) {
-		
-		ArrayList<Event> result = new ArrayList<Event>();
-		EventProcess ep = (EventProcess)getServletContext().getAttribute("event");
-		
-		ArrayList<Event> allEvents = ep.getEventList();
-		for(Event e : allEvents){
-			ArrayList<Applicant> allAppliers = e.getApplicantList();
-			for(Applicant a : allAppliers){
-				if(a.getNumber().equals(me)){
-					result.add(e); break; 
+		for(Applicant a : table.keySet()){
+			String relA = a.getNumber();
+			RelationLink r = new RelationLink(kwd, relA);
+			rls.add(r); if(!elements.contains(relA)) elements.add(relA);
+			
+			Hashtable<Applicant, ArrayList<Event>> secondTable = this.calWhoAndWhoseEvent(ap, ap.getYourEvents(relA), mainevents);
+			
+			ArrayList<Map.Entry<Applicant, Integer>> secondArray = sortRlationTable(tableConvert(secondTable));
+			for(int i = 0; i < secondArray.size(); ++i){
+				Map.Entry<Applicant, Integer> pair = secondArray.get(i);
+				Applicant akey = pair.getKey();
+				String relB = akey.getNumber();
+				if(!table.contains(akey)){
+					table.put(akey, secondtable.get(akey));
+					RelationLink r = new RelationLink(a.getNumber(), relB);
+					rls.add(r); if(!elements.contains(relB)) elements.add(relB);
+					break;
 				}
 			}
 		}
 		
-		return result;		
+		return prepareRelationJson_BadMethod(rls, elements);		
 	}
 	
-	/*
-	public Hashtable<String, ArrayList<Event>> relationDistanceTable(ArrayList<Event> allMyEvents){
+	public ArrayList<RelationTableEntry> tableSplit(ArrayList<Event> master, Hashtable<Applicant, ArrayList<Event>> table){
 		
-		Hashtable<String, ArrayList<Event>> result = new Hashtable<String, ArrayList<Event>>();
+		ArrayList<RelationTableEntry> result = new ArrayList<RelationTableEntry>();
 		
-		for(Event e : allMyEvents){
-			ArrayList<Applier> allAppliers = e.getApplicantList();
-			for(Applier a : allAppliers){
-				String id = a.getNumber();
-				ArrayList<Event> events;
-				if(!result.containsKey(id)) events = new ArrayList<Event>();
-				else events = result.get(id);
-				events.add(e);
-				result.put(id, events);
+		for(Applicant a : table.keySet()){
+			RelationTableEntry rte = new RelationTableEntry(a.getNumber());
+			ArrayList<Event> second = table.get(a);
+			for(Event e : second){
+				boolean ok = false;
+				for(Event c : master){
+					if(e.getTitle().equals(c.getTitle())){
+						rte.addIntersection(e); ok = true;
+						break;
+					} 
+				}
+				if(!ok) rte.addNointersection(e);
 			}
+			result.add(rte);
 		}
 		
 		return result;
 	}
-
-	public RelationJsonPack RelationJsonPacker(String me, Hashtable<String, ArrayList<Event>> table){
+	
+	public String prepareRelationJson_BadMethod(ArrayList<RelationLink> allRelations, ArrayList<String> allElements){
 		
-		int max_value = 0;
-		LittleJsonPack ljp;
-		ArrayList<LittleJsonPack> ljpList = new ArrayList<LittleJsonPack>();
+		String result = "{container: document.getElementById('cy'),boxSelectionEnabled: false,autounselectify: true,layout: {name: 'dagre'},style: [{selector: 'node',style: {'content': 'data(id)','text-opacity': 0.5,'text-valign': 'center','text-halign': 'right','background-color': '#11479e'}},{selector: 'edge',style: {'width': 4,'target-arrow-shape': 'triangle','line-color': '#9dbaea','target-arrow-color': '#9dbaea','curve-style': 'bezier'}}],elements: {nodes: [";
 		
-		for(String key : table.keySet()){
-			int size = table.get(key).size() * 2;
-			if(size > max_value) max_value = size;
-			ljp = new LittleJsonPack(key, new ChildJsonPack(key, size));
-			ljpList.add(ljp);
+		int limit = allElements.size();
+		for(String id : allElements){
+			if(limit == 1) result += "{ data: { id: '" + id + "' } },";
+			else result += "{ data: { id: '" + id + "' } }";
+			--limit;
 		}
 		
-		ChildJsonPack temp_me = new ChildJsonPack(me, max_value + 20);
-		ljp = new LittleJsonPack(me, temp_me);
-		ljpList.add(ljp);
+		result += "],edges: [";
 		
-		return new RelationJsonPack(me, ljpList);
+		for(RelationLink rl : allRelations) result += "{ data: { source: '" + rl.getSource() + "', target: '" + rl.getTarget() + "' } },";
+		
+		result += "]},}";
+		return result;		
 	}
-
-	public void Relation2JsonFile(RelationJsonPack rjp, String fileName) throws IOException {
-		
-		Gson gson = new Gson();
-		String jsonStr = gson.toJson(rjp);
-		
-		File flare = new File(fileName);
-		FileWriter fw = new FileWriter(flare, false);
-		fw.write(jsonStr);
-		fw.close();
-	}
-	*/
 }
