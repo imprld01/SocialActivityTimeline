@@ -3,12 +3,13 @@
 public class RelationTableEntry {
 
 	private String who;
+	private int totalScore;
 	private ArrayList<Event> intersection;
 	private ArrayList<Event> nointersection;
 	
 	public RelationLink(String who) {
 		
-		this.who = who;
+		this.who = who; totalScore = 0;
 		intersection = new ArrayList<Event>();
 		nointersection = new ArrayList<Event>();
 	}
@@ -25,19 +26,19 @@ public class RelationTableEntry {
 		return this.nointersection;
 	}
 	
+	public int getTotalScore(){
+		return totalScore;
+	}
+	
 	public void setWho(String in) {
 		this.who = in;
 	}
 	
 	public void addIntersection(Event in) {
-		this.intersection.add(in);
+		this.intersection.add(in); ++totalScore;
 	}
 	
 	public void addNointersection(Event in) {
-		this.nointersection.add(in);
-	}
-	
-	public int calSize(){
-		return intersection.size() + nointersection.size();
+		this.nointersection.add(in); ++totalScore;
 	}
 }

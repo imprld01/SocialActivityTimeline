@@ -49,7 +49,7 @@ public class DataAnalysis{
 		return list.get(k-1);
 	}
 
-	public Hashtable<Applicant, ArrayList<Event>> calWhoAndWhoseEvent(ApplyProcess ap, ArrayList<Event> master, ArrayList<Event> eventFilter){
+	public Hashtable<Applicant, ArrayList<Event>> calWhoAndWhoseEvent(ApplyProcess ap, EventProcess ep, ArrayList<Event> master, ArrayList<Event> eventFilter){
 		
 		ArrayList<String> myEventType = new ArrayList<String>();
 		for(Event e : master){
@@ -63,7 +63,7 @@ public class DataAnalysis{
 			ArrayList<Applicant> applicants = e.getApplicantList();
 			for(Applicant a : applicants){
 				ArrayList<Event> value = new ArrayList<Event>();
-				ArrayList<Event> yourevents = ap.getYourEvents(a.getNumber());
+				ArrayList<Event> yourevents = ap.getYourEvents(ep, a.getNumber());
 				for(Event y : yourevents) if(myEventType.contains(y.getType())) value.add(y);
 				table.put(a, value);
 			}
@@ -93,13 +93,13 @@ public class DataAnalysis{
 		return l;
     }
 	
-	public String RelationAnalysis(ApplyProcess ap, String kwd, ArrayList<Event> mainevents, Hashtable<Applicant, ArrayList<Event>> table){
+	public String RelationAnalysis(ApplyProcess ap, EventProcess ep, String kwd, ArrayList<Event> mainevents, Hashtable<Applicant, ArrayList<Event>> table){
 		
 		ArrayList<RelationLink> rls = new ArrayList<RelationLink>();
 		ArrayList<String> elements = new ArrayList<String>();
 		elements.add(kwd);
 		
-		Hashtable<Applicant, ArrayList<Event>> maintable = this.calWhoAndWhoseEvent(ap, mainevents, new ArrayList<Event>());
+		Hashtable<Applicant, ArrayList<Event>> maintable = this.calWhoAndWhoseEvent(ap, ep, mainevents, new ArrayList<Event>());
 		
 		ArrayList<Map.Entry<Applicant, Integer>> mainArray = sortRlationTable(tableConvert(maintable));
 		for(int i = 0; i < 5; ++i){
@@ -113,7 +113,7 @@ public class DataAnalysis{
 			RelationLink r = new RelationLink(kwd, relA);
 			rls.add(r); if(!elements.contains(relA)) elements.add(relA);
 			
-			Hashtable<Applicant, ArrayList<Event>> secondTable = this.calWhoAndWhoseEvent(ap, ap.getYourEvents(relA), mainevents);
+			Hashtable<Applicant, ArrayList<Event>> secondTable = this.calWhoAndWhoseEvent(ap, ep, ap.getYourEvents(ep, relA), mainevents);
 			
 			ArrayList<Map.Entry<Applicant, Integer>> secondArray = sortRlationTable(tableConvert(secondTable));
 			for(int i = 0; i < secondArray.size(); ++i){
@@ -151,6 +151,12 @@ public class DataAnalysis{
 			}
 			result.add(rte);
 		}
+		
+		Collections.sort(result, new Comparator<RelationTableEntry>(){
+			public int compare(RelationTableEntry o1, RelationTableEntry o2) {
+				return o2.getTotalScore().compareTo(o1.getTotalScore());
+			}
+		});
 		
 		return result;
 	}

@@ -16,13 +16,14 @@ public class RelationServlet extends HttpServlet {
 		
 		RequestDispatcher view = null;
 		DataAnalysis da = new DataAnalysis();
+		EventProcess ep = (EventProcess)getServletContext().getAttribute("event");
 		ApplyProcess ap = (ApplyProcess)getServletContext().getAttribute("apply");
 		String kwd = (String)request.getParameter("kwd");
 		
 		if(kwd != null){
-			ArrayList<Event> mainevents = ap.getYourEvents(kwd);
+			ArrayList<Event> mainevents = ap.getYourEvents(ep, kwd);
 			Hashtable<Applicant, ArrayList<Event>> table = new Hashtable<Applicant, ArrayList<Event>>();
-			String jString = da.RelationAnalysis(ap, kwd, mainevents, table);
+			String jString = da.RelationAnalysis(ap, ep, kwd, mainevents, table);
 			ArrayList<RelationTableEntry> result = tableSplit(mainevents, table);
 			request.setAttribute("jsonStrg", jString);
 			request.setAttribute("relArray", result);

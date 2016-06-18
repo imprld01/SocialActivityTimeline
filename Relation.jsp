@@ -22,20 +22,26 @@
 			<table>
 				<tr>
 					<td>Who</td>
-					<td>Events</td>
-					<td>Total</td>
+					<td>Intersection Events</td>
+					<td>NonIntersection Events</td>
+					<td>Total Events</td>
 				</tr>
-				<c:forEach var = "key" items = "${TableKeySet}">
+				<c:forEach var = "element" items = "${relArray}">
 					<tr>
-						<td>${key}</td>
+						<td>${element.who}</td>
 						<td>
-							<br>
-							<c:forEach var = "event" varStatus = "theCount" items = "${RelationTable[key]}">
-								${event.name}<br>
-								<c:set var = "total" value = "theCount" scope = "request" />
+							&nbsp
+							<c:forEach var = "event" items = "${element.intersection}">
+								${event.name}&nbsp
 							</c:forEach>
 						</td>
-						<td>${total}</td>
+						<td>
+							&nbsp
+							<c:forEach var = "event" items = "${element.nointersection}">
+								${event.name}&nbsp
+							</c:forEach>
+						</td>
+						<td>${element.totalScore}</td>
 					</tr>
 				</c:forEach>
 			</table>
