@@ -22,11 +22,17 @@ public class EventInfoServlet extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				EventProcess ep = (EventProcess) getServletContext().getAttribute("event");
 				ArrayList<Event>eList = ep.getEventList();
-				String action = (String)request.getAttribute("action");//check if top10
+				if(eList==null){System.out.println(">>EventInfoServlet eList is null");}
+				String action = (String)request.getParameter("action");//check if top10
+				//test action
+				System.out.println(">>EventInfoServlet action = \""+action+"\"");
+				//test context
+				//System.out.println(">>EventInfoServlet eList[0] name = \""+eList.get(0).getName()+"\"");
+				
 				DataAnalysis da = new DataAnalysis();
 				
 				/****find top 10****/
-				if(action!=null){
+				if(action.equals("top10")){
 					ArrayList<Event> top10= new ArrayList<Event>();
 					top10 = da.getHitRatio(eList);
 					request.setAttribute("top10",top10);
@@ -39,16 +45,18 @@ public class EventInfoServlet extends HttpServlet {
 					int id = (int)request.getAttribute("id");//get id of redirect event
 					Event event = eList.get(id);
 					request.setAttribute("event",event);
-				/****update CTR****/	
-					eList.get(id).setCTR(eList.get(id).getCTR()++);//CTR++
+				/****update CTR****/
+					int  t= eList.get(id).getCTR();
+					t++;
+					eList.get(id).setCTR(t);//CTR++
 					getServletContext().setAttribute("event",eList);//update CTR
 					
 				/****send the number of participatants ****/
-					request.setAttribute("participatants",(int)eList.get(id).getApplicantList.size());
+					request.setAttribute("participatants",(int)eList.get(id).getApplicantList().size());
 				
 				/****send the sex ratio ****/
 					
-					Double ratio = da.getSexRatio(eList.get(id).getApplicantList);
+					int[] ratio = da.getSexRatio(eList.get(id).getApplicantList());
 					request.setAttribute("sexRatio",ratio);
 				
 				

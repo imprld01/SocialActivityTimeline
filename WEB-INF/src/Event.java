@@ -32,7 +32,7 @@ public class Event {
 	    minute = 0;
     }
 	
-	public Event(int id,String aName,String aPre,String anIntro,String anImg, int y,int m,int d,int h, int min) {
+	public Event(int id,String aName,String aPre,String anIntro,String anImg, int y,int m,int d,int h, int min,int ctr) {
         this.applicantList = new ArrayList<Applicant>();
 	    this.name = aName;
 		this.preview = aPre;
@@ -43,6 +43,7 @@ public class Event {
         this.day = d;
 	    this.hour=h;
 	    this.minute = min;
+		this.CTR = ctr;
     }
 
     public ArrayList<Applicant> getApplicantList() {
@@ -132,7 +133,15 @@ public class Event {
     public void setImgPath(String imgPath) {
         ImgPath = imgPath;
     }
+	
+	public String getPreview() {
+        return preview;
+    }
 
+    public void setPreview(String p) {
+        preview = p;
+    }
+	
     public int getCTR() {
         return CTR;
     }
