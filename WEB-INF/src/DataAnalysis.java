@@ -49,7 +49,7 @@ public class DataAnalysis{
 		return list.get(k-1);
 	}
 
-	public Hashtable<Applicant, ArrayList<Event>> calRelationScoreTable(ApplyProcess ap, ArrayList<Event> master, ArrayList<Event> eventFilter){
+	public Hashtable<Applicant, ArrayList<Event>> calWhoAndWhoseEvent(ApplyProcess ap, ArrayList<Event> master, ArrayList<Event> eventFilter){
 		
 		ArrayList<String> myEventType = new ArrayList<String>();
 		for(Event e : master){
@@ -93,14 +93,13 @@ public class DataAnalysis{
 		return l;
     }
 	
-	public String RelationAnalysis(ApplyProcess ap, String kwd, Hashtable<Applicant, ArrayList<Event>> table){
+	public String RelationAnalysis(ApplyProcess ap, String kwd, ArrayList<Event> mainevents, Hashtable<Applicant, ArrayList<Event>> table){
 		
 		ArrayList<RelationLink> rls = new ArrayList<RelationLink>();
 		ArrayList<String> elements = new ArrayList<String>();
 		elements.add(kwd);
 		
-		ArrayList<Event> mainevents = ap.getYourEvents(kwd);
-		Hashtable<Applicant, ArrayList<Event>> maintable = this.calRelationScoreTable(ap, mainevents, new ArrayList<Event>());
+		Hashtable<Applicant, ArrayList<Event>> maintable = this.calWhoAndWhoseEvent(ap, mainevents, new ArrayList<Event>());
 		
 		ArrayList<Map.Entry<Applicant, Integer>> mainArray = sortRlationTable(tableConvert(maintable));
 		for(int i = 0; i < 5; ++i){
@@ -114,7 +113,7 @@ public class DataAnalysis{
 			RelationLink r = new RelationLink(kwd, relA);
 			rls.add(r); if(!elements.contains(relA)) elements.add(relA);
 			
-			Hashtable<Applicant, ArrayList<Event>> secondTable = this.calRelationScoreTable(ap, ap.getYourEvents(a.getNumber()), mainevents);
+			Hashtable<Applicant, ArrayList<Event>> secondTable = this.calWhoAndWhoseEvent(ap, ap.getYourEvents(relA), mainevents);
 			
 			ArrayList<Map.Entry<Applicant, Integer>> secondArray = sortRlationTable(tableConvert(secondTable));
 			for(int i = 0; i < secondArray.size(); ++i){
@@ -131,6 +130,29 @@ public class DataAnalysis{
 		}
 		
 		return prepareRelationJson_BadMethod(rls, elements);		
+	}
+	
+	public ArrayList<RelationTableEntry> tableSplit(ArrayList<Event> master, Hashtable<Applicant, ArrayList<Event>> table){
+		
+		ArrayList<RelationTableEntry> result = new ArrayList<RelationTableEntry>();
+		
+		for(Applicant a : table.keySet()){
+			RelationTableEntry rte = new RelationTableEntry(a.getNumber());
+			ArrayList<Event> second = table.get(a);
+			for(Event e : second){
+				boolean ok = false;
+				for(Event c : master){
+					if(e.getTitle().equals(c.getTitle())){
+						rte.addIntersection(e); ok = true;
+						break;
+					} 
+				}
+				if(!ok) rte.addNointersection(e);
+			}
+			result.add(rte);
+		}
+		
+		return result;
 	}
 	
 	public String prepareRelationJson_BadMethod(ArrayList<RelationLink> allRelations, ArrayList<String> allElements){
@@ -151,74 +173,4 @@ public class DataAnalysis{
 		result += "]},}";
 		return result;		
 	}
-	
-	public ArrayList<Event> whatIParticipateIn(String kwd) {
-		
-		ArrayList<Event> result = new ArrayList<Event>();
-		EventProcess ep = (EventProcess)getServletContext().getAttribute("event");
-		
-		ArrayList<Event> allEvents = ep.getEventList();
-		for(Event e : allEvents){
-			ArrayList<Applicant> allAppliers = e.getApplicantList();
-			for(Applicant a : allAppliers){
-				if(a.getNumber().equals(me)){
-					result.add(e); break; 
-				}
-			}
-		}
-		
-		return result;		
-	}
-	
-	/*
-	public Hashtable<String, ArrayList<Event>> relationDistanceTable(ArrayList<Event> allMyEvents){
-		
-		Hashtable<String, ArrayList<Event>> result = new Hashtable<String, ArrayList<Event>>();
-		
-		for(Event e : allMyEvents){
-			ArrayList<Applier> allAppliers = e.getApplicantList();
-			for(Applier a : allAppliers){
-				String id = a.getNumber();
-				ArrayList<Event> events;
-				if(!result.containsKey(id)) events = new ArrayList<Event>();
-				else events = result.get(id);
-				events.add(e);
-				result.put(id, events);
-			}
-		}
-		
-		return result;
-	}
-
-	public RelationJsonPack RelationJsonPacker(String me, Hashtable<String, ArrayList<Event>> table){
-		
-		int max_value = 0;
-		LittleJsonPack ljp;
-		ArrayList<LittleJsonPack> ljpList = new ArrayList<LittleJsonPack>();
-		
-		for(String key : table.keySet()){
-			int size = table.get(key).size() * 2;
-			if(size > max_value) max_value = size;
-			ljp = new LittleJsonPack(key, new ChildJsonPack(key, size));
-			ljpList.add(ljp);
-		}
-		
-		ChildJsonPack temp_me = new ChildJsonPack(me, max_value + 20);
-		ljp = new LittleJsonPack(me, temp_me);
-		ljpList.add(ljp);
-		
-		return new RelationJsonPack(me, ljpList);
-	}
-
-	public void Relation2JsonFile(RelationJsonPack rjp, String fileName) throws IOException {
-		
-		Gson gson = new Gson();
-		String jsonStr = gson.toJson(rjp);
-		
-		File flare = new File(fileName);
-		FileWriter fw = new FileWriter(flare, false);
-		fw.write(jsonStr);
-		fw.close();
-	}
-	*/
 }
