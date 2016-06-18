@@ -49,8 +49,36 @@ public class DataAnalysis{
 		return list.get(k-1);
 	}
 
-	public Hashtable<Applicant, Integer> calRelationScoreTable(ArrayList<Event> master, ArrayList<Event> eventFilter){
+	public Hashtable<Applicant, ArrayList<Event>> calRelationScoreTable(ApplyProcess ap, ArrayList<Event> master, ArrayList<Event> eventFilter){
 		
+		ArrayList<String> myEventType = new ArrayList<String>();
+		for(Event e : master){
+			String thetype = e.getType();
+			if(!myEventType.contains(thetype)) myEventType.add(thetype);
+		}
+		
+		Hashtable<Applicant, ArrayList<Event>> table = new Hashtable<Applicant, ArrayList<Event>>();
+		for(Event e : master){
+			if(eventFilter.contains(e)) continue;
+			ArrayList<Applicant> applicants = e.getApplicantList();
+			for(Applicant a : applicants){
+				ArrayList<Event> value = new ArrayList<Event>();
+				ArrayList<Event> yourevents = ap.getYourEvents(a.getNumber());
+				for(Event y : yourevents) if(myEventType.contains(y.getType())) value.add(y);
+				table.put(a, value);
+			}
+		}
+		
+		return table;
+	}
+	
+	public Hashtable<Applicant, Integer> tableConvert(Hashtable<Applicant, ArrayList<Event>> table){
+		
+		Hashtable<Applicant, ArrayList<Event>> result = new Hashtable<Applicant, ArrayList<Event>>();
+		
+		for(Applicant a : table.keySet()) result.put(a, table.get(a).size());
+		
+		return result;
 	}
 	
 	public ArrayList<Map.Entry<Applicant, Integer>> sortRlationTable(Hashtable<Applicant, Integer> t){
@@ -65,24 +93,60 @@ public class DataAnalysis{
 		return l;
     }
 	
-	public String RelationAnalysis(Hashtable<Applicant, Integer> table){
+	public String RelationAnalysis(ApplyProcess ap, String kwd, Hashtable<Applicant, ArrayList<Event>> table){
 		
 		ArrayList<RelationLink> rls = new ArrayList<RelationLink>();
+		ArrayList<String> elements = new ArrayList<String>();
+		elements.add(kwd);
 		
+		ArrayList<Event> mainevents = ap.getYourEvents(kwd);
+		Hashtable<Applicant, ArrayList<Event>> maintable = this.calRelationScoreTable(ap, mainevents, new ArrayList<Event>());
 		
+		ArrayList<Map.Entry<Applicant, Integer>> mainArray = sortRlationTable(tableConvert(maintable));
+		for(int i = 0; i < 5; ++i){
+			Map.Entry<Applicant, Integer> pair = mainArray.get(i);
+			Applicant akey = pair.getKey();
+			table.put(akey, maintable.get(akey));
+		}
 		
-		return prepareRelationJson_BadMethod(rls);		
+		for(Applicant a : table.keySet()){
+			String relA = a.getNumber();
+			RelationLink r = new RelationLink(kwd, relA);
+			rls.add(r); if(!elements.contains(relA)) elements.add(relA);
+			
+			Hashtable<Applicant, ArrayList<Event>> secondTable = this.calRelationScoreTable(ap, ap.getYourEvents(a.getNumber()), mainevents);
+			
+			ArrayList<Map.Entry<Applicant, Integer>> secondArray = sortRlationTable(tableConvert(secondTable));
+			for(int i = 0; i < secondArray.size(); ++i){
+				Map.Entry<Applicant, Integer> pair = secondArray.get(i);
+				Applicant akey = pair.getKey();
+				String relB = akey.getNumber();
+				if(!table.contains(akey)){
+					table.put(akey, secondtable.get(akey));
+					RelationLink r = new RelationLink(a.getNumber(), relB);
+					rls.add(r); if(!elements.contains(relB)) elements.add(relB);
+					break;
+				}
+			}
+		}
+		
+		return prepareRelationJson_BadMethod(rls, elements);		
 	}
 	
-	public String prepareRelationJson_BadMethod(ArrayList<RelationLink> allRelations){
+	public String prepareRelationJson_BadMethod(ArrayList<RelationLink> allRelations, ArrayList<String> allElements){
 		
 		String result = "{container: document.getElementById('cy'),boxSelectionEnabled: false,autounselectify: true,layout: {name: 'dagre'},style: [{selector: 'node',style: {'content': 'data(id)','text-opacity': 0.5,'text-valign': 'center','text-halign': 'right','background-color': '#11479e'}},{selector: 'edge',style: {'width': 4,'target-arrow-shape': 'triangle','line-color': '#9dbaea','target-arrow-color': '#9dbaea','curve-style': 'bezier'}}],elements: {nodes: [";
 		
-		//add nodes
+		int limit = allElements.size();
+		for(String id : allElements){
+			if(limit == 1) result += "{ data: { id: '" + id + "' } },";
+			else result += "{ data: { id: '" + id + "' } }";
+			--limit;
+		}
 		
 		result += "],edges: [";
 		
-		//add edges
+		for(RelationLink rl : allRelations) result += "{ data: { source: '" + rl.getSource() + "', target: '" + rl.getTarget() + "' } },";
 		
 		result += "]},}";
 		return result;		
