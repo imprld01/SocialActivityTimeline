@@ -7,8 +7,8 @@ public class RelationLink {
 	
 	public RelationLink(String source, String target) {
 		
-		this.setFirst(source);
-		this.setSecond(target);
+		this.setSource(source);
+		this.setTarget(target);
 	}
 	
 	public String getSource() {
