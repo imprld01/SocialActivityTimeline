@@ -34,7 +34,8 @@ public class Event {
 	
 	public Event(int id,String aName,String aPre,String anIntro,String anImg, int y,int m,int d,int h, int min,int ctr) {
         this.applicantList = new ArrayList<Applicant>();
-	    this.name = aName;
+	    this.id = id;
+		this.name = aName;
 		this.preview = aPre;
 	    this.introduction = anIntro;
 	    this.ImgPath = anImg;

@@ -1,7 +1,7 @@
 package com.web;
 
 import java.io.IOException;
-
+import com.model.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 

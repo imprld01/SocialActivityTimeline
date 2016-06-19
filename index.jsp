@@ -36,17 +36,17 @@
 					<ul>
 					
 						<!-- top 10 -->
-						<li><a href="EventInfoServlet.do?action=top10 ">Top 10</a></li>
+						<li><a href="EventInfo.do?action=top10 ">Top 10</a></li>
 						
 						<!-- create event -->
-						<li><a href="CertificateServlet.do" name="h1" onclick="popup()">我要辦活動</a></li>
+						<li><a href="#" name="h1" onclick="popup()">我要辦活動</a></li>
 							<script>
 							function popup() {
 								var pwd = prompt("請輸入社團驗證碼", "");
 							
 								if (pwd != null) {
-									document.all("h1").innerText =
-									"CertificateServlet.do?pwd=" + pwd ;
+									document.all("h1").href =
+									"Certificate.do?pwd=" + pwd ;
 								}
 							}
 							</script>
@@ -59,8 +59,8 @@
 								var kwd = prompt("請輸入關鍵字", "");
 								
 								if (kwd != null) {
-									document.all("h2").innerText =
-									"RelationServletServlet.do?kwd=" + kwd ;
+									document.all("h2").href =
+									"Relation.do?kwd=" + kwd ;
 								}
 							}
 							</script>
@@ -84,10 +84,10 @@
 	
 	<section>
 		
-		<form method="get" action="/IndexServlet.do" style = "background-color: lightgray; padding: 50px; padding-bottom: 65px;">
+		<form method="get" action="/Index.do" style = "background-color: lightgray; padding: 50px; padding-bottom: 65px;" >
 			<br><div class="row uniform 100%">
 				
-				<div class="6u$ 12u$(xlarge)" align="center">
+				<div class="12u$ 12u$(xlarge)" align="center">
 					<h3>活動分類</h3>
 					<input type="checkbox" id="priority-low" name="club" value="運動比賽">
 					<label for="priority-low">運動比賽</label>
@@ -135,7 +135,7 @@
 							<p>讓我們幫你找出與你志趣相投的人吧!</p>
 						</header>
 						<ul class="actions">
-							<li><a href="#" class="button special big">Here We Go !</a></li>
+							<li><a href="#" name="h2"class="button special big" onclick="pop2()">Here We Go !</a></li>
 						</ul>
 					</div>
 				</section>

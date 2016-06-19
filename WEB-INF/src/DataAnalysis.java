@@ -29,8 +29,20 @@ public class DataAnalysis{
 		for(Event event:eList){
 			hitArray.add(event.getCTR());
 		}
+		int j=0;
+		int k=1;
 		for(int i=1;i<=10;i++){
-			top10.add(eList.get(find(hitArray,i)));
+			j =find(hitArray,i);
+			for(Event e:eList){
+				if(e.getCTR()==j){
+					k=e.getId();
+					System.out.println(k);
+					System.out.println(e.toString());
+					break;
+				}
+			}
+			System.out.println(i+".>>["+j+"]"+eList.get(k).getName());
+			top10.add(eList.get(k));
 		}
 		return top10;
 	}
@@ -48,7 +60,7 @@ public class DataAnalysis{
 		}
 		return list.get(k-1);
 	}
-
+	/*
 	public Hashtable<Applicant, ArrayList<Event>> calWhoAndWhoseEvent(ApplyProcess ap, EventProcess ep, ArrayList<Event> master, ArrayList<Event> eventFilter){
 		
 		ArrayList<String> myEventType = new ArrayList<String>();
@@ -169,4 +181,5 @@ public class DataAnalysis{
 		result += "]}}";
 		return result;		
 	}
+	*/
 }

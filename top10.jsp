@@ -5,16 +5,17 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>template</title>
+		<title>top10</title>
 		<link rel="stylesheet" type="text/css" href="index.css">
 	</head>
 	<body>
+	<div class="bubbleChart" style="background: #000000">
 	<%
 		ArrayList<Event> list = (ArrayList<Event>)request.getAttribute("top10");
 	%>
 	<!-- d3.js graph--->
 	<!--title,url,value-->
-		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600,200italic,600italic&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600,200italic,600italic&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
 
   <script src="http://phuonghuynh.github.io/js/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="http://phuonghuynh.github.io/js/bower_components/d3/d3.min.js"></script>
@@ -27,8 +28,7 @@
   <script src="http://phuonghuynh.github.io/js/bower_components/bubble-chart/src/plugins/central-click/central-click.js"></script>
   <script src="http://phuonghuynh.github.io/js/bower_components/bubble-chart/src/plugins/lines/lines.js"></script>
   <script>
-  $(document).ready(function () {
-  var bubbleChart = new d3.svg.BubbleChart({
+    var bubbleChart = new d3.svg.BubbleChart({
     supportResponsive: true,
     //container: => use @default
     size: 600,
@@ -42,17 +42,19 @@
     //circleColor: use @default
     data: {
       items: [
-        {text: "<%=list.get(0).getTitle()%>", count: "<%=list.get(0).getCTR()%>"},
-        {text: "<%=list.get(1).getTitle()%>", count: "<%=list.get(1).getCTR()%>"},
-        {text: "<%=list.get(2).getTitle()%>", count: "<%=list.get(2).getCTR()%>"},
-        {text: "<%=list.get(3).getTitle()%>", count: "<%=list.get(3).getCTR()%>"},
-        {text: "<%=list.get(4).getTitle()%>", count: "<%=list.get(4).getCTR()%>"},
-        {text: "<%=list.get(5).getTitle()%>", count: "<%=list.get(5).getCTR()%>"},
-        {text: "<%=list.get(6).getTitle()%>", count: "<%=list.get(6).getCTR()%>"},
-        {text: "<%=list.get(7).getTitle()%>", count: "<%=list.get(7).getCTR()%>"},
-        {text: "<%=list.get(8).getTitle()%>", count: "<%=list.get(8).getCTR()%>"},
-		{text: "<%=list.get(9).getTitle()%>", count: "<%=list.get(9).getCTR()%>"},
-      ],
+	  
+        {text: "<%=list.get(0).getName()%>", count: "<%=list.get(0).getCTR()%>"},
+        {text: "<%=list.get(1).getName()%>", count: "<%=list.get(1).getCTR()%>"},
+        {text: "<%=list.get(2).getName()%>", count: "<%=list.get(2).getCTR()%>"},
+        {text: "<%=list.get(3).getName()%>", count: "<%=list.get(3).getCTR()%>"},
+        {text: "<%=list.get(4).getName()%>", count: "<%=list.get(4).getCTR()%>"},
+        {text: "<%=list.get(5).getName()%>", count: "<%=list.get(5).getCTR()%>"},
+        {text: "<%=list.get(6).getName()%>", count: "<%=list.get(6).getCTR()%>"},
+        {text: "<%=list.get(7).getName()%>", count: "<%=list.get(7).getCTR()%>"},
+        {text: "<%=list.get(8).getName()%>", count: "<%=list.get(8).getCTR()%>"},
+		{text: "<%=list.get(9).getName()%>", count: "<%=list.get(9).getCTR()%>"},
+		
+     ],
       eval: function (item) {return item.count;},
       classed: function (item) {return item.text.split(" ").join("");}
     },
@@ -126,7 +128,7 @@
 });
   </script>
   
-  <style>
+   <style>
     .bubbleChart {
       min-width: 100px;
       max-width: 700px;
@@ -138,10 +140,9 @@
     }
   </style>
 	
-	
-	
+	</div>
 	<!-- table--->
-	<table>
+	<table align = "center">
   <tr>
     <th>排行</th>
     <th>活動名稱</th>
@@ -153,7 +154,7 @@
 			out.print("<tr>");
 			out.print("<td>"+i+"</td>");
 			i++;
-			out.print("<td>"+"<a href='"+event.getUrl()+"'>"+event.getTitle()+"</a>"+"</td>");
+			out.print("<td>"+"<a href='eventInfo.do?id="+event.getId()+"'>"+event.getName()+"</a>"+"</td>");
 			out.print("<td>"+event.getCTR()+"</td>");
 			out.print("</tr>");
 		}
