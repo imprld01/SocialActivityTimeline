@@ -62,6 +62,7 @@ public class DataAnalysis{
 			if(eventFilter.contains(e)) continue;
 			ArrayList<Applicant> applicants = e.getApplicantList();
 			for(Applicant a : applicants){
+				if(table.containsKey(a)) continue;
 				ArrayList<Event> value = new ArrayList<Event>();
 				ArrayList<Event> yourevents = ap.getYourEvents(ep, a.getNumber());
 				for(Event y : yourevents) if(myEventType.contains(y.getType())) value.add(y);
@@ -74,7 +75,7 @@ public class DataAnalysis{
 	
 	public Hashtable<Applicant, Integer> tableConvert(Hashtable<Applicant, ArrayList<Event>> table){
 		
-		Hashtable<Applicant, ArrayList<Event>> result = new Hashtable<Applicant, ArrayList<Event>>();
+		Hashtable<Applicant, Integer> result = new Hashtable<Applicant, Integer>();
 		
 		for(Applicant a : table.keySet()) result.put(a, table.get(a).size());
 		
@@ -113,7 +114,7 @@ public class DataAnalysis{
 			RelationLink r = new RelationLink(kwd, relA);
 			rls.add(r); if(!elements.contains(relA)) elements.add(relA);
 			
-			Hashtable<Applicant, ArrayList<Event>> secondTable = this.calWhoAndWhoseEvent(ap, ep, ap.getYourEvents(ep, relA), mainevents);
+			Hashtable<Applicant, ArrayList<Event>> secondTable = this.calWhoAndWhoseEvent(ap, ep, table.get(a), mainevents);
 			
 			ArrayList<Map.Entry<Applicant, Integer>> secondArray = sortRlationTable(tableConvert(secondTable));
 			for(int i = 0; i < secondArray.size(); ++i){
@@ -121,9 +122,9 @@ public class DataAnalysis{
 				Applicant akey = pair.getKey();
 				String relB = akey.getNumber();
 				if(!table.contains(akey)){
-					table.put(akey, secondtable.get(akey));
-					RelationLink r = new RelationLink(a.getNumber(), relB);
-					rls.add(r); if(!elements.contains(relB)) elements.add(relB);
+					table.put(akey, secondTable.get(akey));
+					RelationLink rr = new RelationLink(relA, relB);
+					rls.add(rr); if(!elements.contains(relB)) elements.add(relB);
 					break;
 				}
 			}
@@ -140,14 +141,8 @@ public class DataAnalysis{
 			RelationTableEntry rte = new RelationTableEntry(a.getNumber());
 			ArrayList<Event> second = table.get(a);
 			for(Event e : second){
-				boolean ok = false;
-				for(Event c : master){
-					if(e.getTitle().equals(c.getTitle())){
-						rte.addIntersection(e); ok = true;
-						break;
-					} 
-				}
-				if(!ok) rte.addNointersection(e);
+				if(master.contains(e)) rte.addIntersection(e);
+				else rte.addNointersection(e);
 			}
 			result.add(rte);
 		}
@@ -163,20 +158,15 @@ public class DataAnalysis{
 	
 	public String prepareRelationJson_BadMethod(ArrayList<RelationLink> allRelations, ArrayList<String> allElements){
 		
-		String result = "{container: document.getElementById('cy'),boxSelectionEnabled: false,autounselectify: true,layout: {name: 'dagre'},style: [{selector: 'node',style: {'content': 'data(id)','text-opacity': 0.5,'text-valign': 'center','text-halign': 'right','background-color': '#11479e'}},{selector: 'edge',style: {'width': 4,'target-arrow-shape': 'triangle','line-color': '#9dbaea','target-arrow-color': '#9dbaea','curve-style': 'bezier'}}],elements: {nodes: [";
+		String result = "{container: document.getElementById('relationChart'),boxSelectionEnabled: false,autounselectify: true,layout: {name: 'dagre'},style: [{selector: 'node',style: {'content': 'data(id)','text-opacity': 0.5,'text-valign': 'center','text-halign': 'right','background-color': '#11479e'}},{selector: 'edge',style: {'width': 4,'target-arrow-shape': 'triangle','line-color': '#9dbaea','target-arrow-color': '#9dbaea','curve-style': 'bezier'}}],elements: {nodes: [";
 		
-		int limit = allElements.size();
-		for(String id : allElements){
-			if(limit == 1) result += "{ data: { id: '" + id + "' } },";
-			else result += "{ data: { id: '" + id + "' } }";
-			--limit;
-		}
+		for(String id : allElements) result += "{ data: { id: '" + id + "' } },";
 		
 		result += "],edges: [";
 		
 		for(RelationLink rl : allRelations) result += "{ data: { source: '" + rl.getSource() + "', target: '" + rl.getTarget() + "' } },";
 		
-		result += "]},}";
+		result += "]}}";
 		return result;		
 	}
 }

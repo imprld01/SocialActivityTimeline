@@ -26,7 +26,7 @@ public class RelationTableEntry {
 		return this.nointersection;
 	}
 	
-	public int getTotalScore(){
+	public Integer getTotalScore(){
 		return totalScore;
 	}
 	
