@@ -10,12 +10,12 @@ import java.util.StringTokenizer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class ApplierProcess{
+public class ApplyProcess{
     private Scanner input;
 	private String fileName;
 	private ArrayList<Applicant> accountApplier;
 	
-	public ApplierProcess(String fileName) {
+	public ApplyProcess(String fileName) {
 		
 		this.fileName = fileName;
 		System.setProperty("file.encoding", "UTF-8");
@@ -35,7 +35,7 @@ public class ApplierProcess{
 	public ArrayList<Applicant> ReadApplier()
 	{
 		ArrayList<Applicant> list = new ArrayList<Applicant>();
-		
+		StringTokenizer tokens = new StringTokenizer(input.nextLine());
 		try
 		// read records from file using Scanner object
 		{
@@ -46,19 +46,19 @@ public class ApplierProcess{
 				
 				if (tokens.hasMoreTokens())
 				{
-					a.name = token;
+					a.setName(token);
 				}
 				if (tokens.hasMoreTokens())
 				{
-					a.number = token;
+					a.setNumber(token);
 				}
 				if (tokens.hasMoreTokens())
 				{
-					a.grade = token;
+					a.setGrade(token);
 				}
 				if (tokens.hasMoreTokens())
 				{
-					a.sex = token;
+					a.setSex(token);
 				}
 				
 				list.add(a);	
@@ -97,13 +97,12 @@ public class ApplierProcess{
 		return jsonStr;
 	}
 	
-	public ArrayList<Event> getYourEvent(String id){
+	public ArrayList<Event> getYourEvent(EventProcess ep,String id){
 		ArrayList<Event> activity = new ArrayList<Event>();
-		EventProcess ep = (EventProcess)getServletContext().getAttribute("event");
 		ArrayList<Event> allEvents = ep.getEventList();
 		
 		for(Event event:allEvents){
-			if((id.equals(Event.id)==true)
+			if((id.equals(Event.id))==true)
 			{
 				activity.add(event);
 			}

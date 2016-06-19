@@ -1,4 +1,6 @@
-﻿package com.model;
+package com.model;
+
+import java.util.ArrayList;
 
 public class RelationTableEntry {
 
@@ -7,7 +9,7 @@ public class RelationTableEntry {
 	private ArrayList<Event> intersection;
 	private ArrayList<Event> nointersection;
 	
-	public RelationLink(String who) {
+	public RelationTableEntry(String who) {
 		
 		this.who = who; totalScore = 0;
 		intersection = new ArrayList<Event>();
