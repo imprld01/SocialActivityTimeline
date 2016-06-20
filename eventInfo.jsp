@@ -10,21 +10,20 @@
   </head>
   <body>
    <%
-    Event event = request.getAttribute("event");
-	Event e = new Event();
+    Event e = request.getAttribute("event");
 	out.println(e.getIntroduction());
 	out.print("<img src='"+e.getImgPath()+"'>");
 	%>
 	<hr size="5" align="center" noshade width="90%" color="0000ff">
 	<%
-	int total = (int)request.getAttribute("event");
+	int total = (int)request.getAttribute("participatants");
 	out.print("reg num:" + total);
 	%>
 	<div id="chartdiv"></div>
 	<script type="text/javascript">
 	// 以下的code...
 	<h1>圓餅圖之資料呈現</h1> 
-	var dataset = <%=(int[])request.getAttribute("sexRadio");%> 
+	var dataset = <%=(int[])request.getAttribute("sexRatio");%> 
 	var chart = AmCharts.makeChart( "chartdiv", {
   "type": "pie",
   "theme": "light",
@@ -44,19 +43,6 @@
   "export": {
     "enabled": true
   }
-} );
-jQuery( '.chart-input' ).off().on( 'input change', function() {
-  var property = jQuery( this ).data( 'property' );
-  var target = chart;
-  var value = Number( this.value );
-  chart.startDuration = 0;
-
-  if ( property == 'innerRadius' ) {
-    value += "%";
-  }
-
-  target[ property ] = value;
-  chart.validateNow();
 } );
     </script>
 	
