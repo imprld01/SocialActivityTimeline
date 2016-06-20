@@ -21,9 +21,11 @@ public class EventInfoServlet extends HttpServlet {
 				response.setContentType("text/html; charset=utf-8");
 				PrintWriter out = response.getWriter();
 				EventProcess ep = (EventProcess) getServletContext().getAttribute("event");
+				if(ep==null){System.out.println(">>EventProcess is null");}
 				ArrayList<Event>eList = ep.getEventList();
 				if(eList==null){System.out.println(">>EventInfoServlet eList is null");}
 				String action = (String)request.getParameter("action");//check if top10
+				
 				//test action
 				System.out.println(">>EventInfoServlet action = \""+action+"\"");
 				//test context
@@ -32,7 +34,7 @@ public class EventInfoServlet extends HttpServlet {
 				DataAnalysis da = new DataAnalysis();
 				
 				/****find top 10****/
-				if(action.equals("top10")){
+				if(action != null){
 					ArrayList<Event> top10= new ArrayList<Event>();
 					top10 = da.getHitRatio(eList);
 					request.setAttribute("top10",top10);
@@ -40,16 +42,17 @@ public class EventInfoServlet extends HttpServlet {
 					view.forward(request,response); //next web
 				}
 				else{
-					
+				int id = Integer.valueOf((String)request.getParameter("id"));//get id of redirect event	
 				/****send event information ****/
-					int id = (int)request.getAttribute("id");//get id of redirect event
+					
 					Event event = eList.get(id);
 					request.setAttribute("event",event);
 				/****update CTR****/
 					int  t= eList.get(id).getCTR();
 					t++;
 					eList.get(id).setCTR(t);//CTR++
-					getServletContext().setAttribute("event",eList);//update CTR
+					
+					//getServletContext().setAttribute("event",eList);//update CTR
 					
 				/****send the number of participatants ****/
 					request.setAttribute("participatants",(int)eList.get(id).getApplicantList().size());

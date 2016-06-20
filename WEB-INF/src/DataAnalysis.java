@@ -14,7 +14,7 @@ public class DataAnalysis{
 	public int[] getSexRatio(ArrayList<Applicant> applicantList){
 		int sex[] = new int[2];
 		for(Applicant applicant : applicantList){
-			if(applicant.getSex().equals(Sex.MALE)){
+			if(applicant.getSex() == Sex.MALE){
 				sex[0]++;
 			}else{
 				sex[1]++;
@@ -60,12 +60,12 @@ public class DataAnalysis{
 		}
 		return list.get(k-1);
 	}
-	/*
+	
 	public Hashtable<Applicant, ArrayList<Event>> calWhoAndWhoseEvent(ApplyProcess ap, EventProcess ep, ArrayList<Event> master, ArrayList<Event> eventFilter){
 		
-		ArrayList<String> myEventType = new ArrayList<String>();
+		ArrayList<Type> myEventType = new ArrayList<Type>();
 		for(Event e : master){
-			String thetype = e.getType();
+			Type thetype = e.getType();
 			if(!myEventType.contains(thetype)) myEventType.add(thetype);
 		}
 		
@@ -181,5 +181,5 @@ public class DataAnalysis{
 		result += "]}}";
 		return result;		
 	}
-	*/
+	
 }
