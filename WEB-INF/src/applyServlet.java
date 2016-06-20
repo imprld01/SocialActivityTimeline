@@ -18,10 +18,11 @@ public class ApplyServlet extends HttpServlet{
 			String applierGrade = (String)request.getAttribute("grade");
 			String applierNumber = (String)request.getAttribute("number");
 			String applierSex = (String)request.getAttribute("sex");
+			Sex s = Sex.valueOf(applierSex);
 			ApplyProcess apply = new ApplyProcess();
-			Applicant applicant  = new Appliant(applierName, applierGrade, applierNumber, applierSex);
+			Applicant applicant  = new Applicant(applierName, applierGrade, applierNumber, s);
 			Event e = (Event) request.getAttribute("event");
-			int eID = e.getID();
+			int eID = e.getId();
 			EventProcess ep;
 			ep.addApplicant2Event(eID,applicant);
 			apply.WriteApplier(applicant);
