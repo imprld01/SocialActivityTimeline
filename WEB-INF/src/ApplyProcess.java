@@ -13,7 +13,6 @@ import com.google.gson.GsonBuilder;
 public class ApplyProcess{
     private Scanner input;
 	private String fileName;
-	private ArrayList<Applicant> accountApplier;
 	
 	public ApplyProcess(String fileName) {
 		
@@ -32,7 +31,7 @@ public class ApplyProcess{
 			System.exit(1);
 		}
 	}
-	public ArrayList<Applicant> ReadApplier()
+	/*public ArrayList<Applicant> ReadApplier()
 	{
 		ArrayList<Applicant> list = new ArrayList<Applicant>();
 		StringTokenizer tokens = new StringTokenizer(input.nextLine());
@@ -73,7 +72,7 @@ public class ApplyProcess{
 		
 		
 		return list;
-	} // end method readRecords
+	} // end method readRecords*/
 	
 	public Applicant jsonStr2Account(String jsonStr) {
 		
