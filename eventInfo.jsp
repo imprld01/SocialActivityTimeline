@@ -19,6 +19,7 @@
 	int total = (int)request.getAttribute("event");
 	out.print("reg num:" + total);
 	%>
+	<div id="chartdiv"></div>
 	<script type="text/javascript">
 	// 以下的code...
 	<h1>圓餅圖之資料呈現</h1> 
