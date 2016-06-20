@@ -14,13 +14,16 @@ public class ApplyServlet extends HttpServlet{
 			throws IOException, ServletException {
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
-			String applierName = request.getAttribute("name");
-			String applierGrade = request.getAttribute("grade");
-			String applierNumber = request.getAttribute("number");
+			String applierName = (String)request.getAttribute("name");
+			String applierGrade = (String)request.getAttribute("grade");
+			String applierNumber = (String)request.getAttribute("number");
 			String applierSex = (String)request.getAttribute("sex");
 			ApplyProcess apply = new ApplyProcess();
 			Applicant applicant  = new Appliant(applierName, applierGrade, applierNumber, applierSex);
-			
+			Event e = new Event();
+			int eID = e.getID();
+			EventProcess ep;
+			ep.addApplicant2Event(eID,applicant);
 			apply.WriteApplier(applicant);
 			
 			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
