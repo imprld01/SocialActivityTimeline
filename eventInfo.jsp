@@ -9,7 +9,8 @@
     <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
   </head>
   <body>
-	<%
+   <%
+    Event event = request.getAttribute("event");
 	Event e = new Event();
 	out.println(e.getIntroduction());
 	out.print("<img src='"+e.getImgPath()+"'>");
@@ -61,5 +62,6 @@ jQuery( '.chart-input' ).off().on( 'input change', function() {
 	
 	<input type="button" value="報名" onclick="applyform.jsp'">
 	
+	<%request.setAttribute("event",event);%>
   </body>
 </html>  
