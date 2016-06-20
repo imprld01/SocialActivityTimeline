@@ -19,7 +19,10 @@ public class ApplyProcess{
 		this.fileName = fileName;
 		System.setProperty("file.encoding", "UTF-8");
 		open(); 
-		ReadApplier();
+		//ReadApplier();
+	}
+	public ApplyProcess(){
+		
 	}
 	public void open() {
 		
@@ -88,7 +91,7 @@ public class ApplyProcess{
 		fw.close();
 	}
 	
-	public String account2JsonStr(Applicant applicant) {
+	public String applier2JsonStr(Applicant applicant) {
 		
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(applicant);
@@ -96,14 +99,15 @@ public class ApplyProcess{
 		return jsonStr;
 	}
 	
-	public ArrayList<Event> getYourEvent(EventProcess ep,String id){
+	public ArrayList<Event> getYourEvents(EventProcess ep,String id){
 		ArrayList<Event> activity = new ArrayList<Event>();
 		ArrayList<Event> allEvents = ep.getEventList();
 		
 		for(Event event:allEvents){
-			if((id.equals(Event.id))==true)
-			{
-				activity.add(event);
+			for(Applicant a: event.getApplicantList()){
+				if((id.equals(a.getNumber()))==true){
+					activity.add(event);
+				}		
 			}
 		}
 		return activity;
