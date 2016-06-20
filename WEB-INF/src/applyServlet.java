@@ -20,7 +20,7 @@ public class ApplyServlet extends HttpServlet{
 			String applierSex = (String)request.getAttribute("sex");
 			ApplyProcess apply = new ApplyProcess();
 			Applicant applicant  = new Appliant(applierName, applierGrade, applierNumber, applierSex);
-			Event e = new Event();
+			Event e = (Event) request.getAttribute("event");
 			int eID = e.getID();
 			EventProcess ep;
 			ep.addApplicant2Event(eID,applicant);
