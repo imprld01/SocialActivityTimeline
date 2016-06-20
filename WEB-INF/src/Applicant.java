@@ -4,16 +4,16 @@ package com.model;
  * Created by WeiRenChen on 2016/6/13.
  */
 
-enum Sex{
-        MALE, FEMALE
-};
+
 
 public class Applicant {
     private String name;
     private String grade;
     private String number;
     private Sex sex;
-	
+	public enum Sex{
+        MALE, FEMALE
+};
 	public Applicant(String name,String  grade, String number, Sex sex){
 		setName(name);
 		setGrade(grade);
