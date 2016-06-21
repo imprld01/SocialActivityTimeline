@@ -18,15 +18,23 @@
 		<script src="https://cdn.rawgit.com/cpettitt/dagre/v0.7.4/dist/dagre.min.js"></script>
 		<script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-dagre/1.1.2/cytoscape-dagre.js"></script>
 		
+
+    	<style>
+			#relationChart {
+				width: 500px;
+				height: 500px;
+
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id = "relationChart"></div><hr>
 		<script>
 			$(function(){
 				var cy = window.cy = cytoscape(${jsonStrg});
 			});
 		</script>
-    </head>
-	
-	<body>
-		<div id = "relationChart"></div><hr>
 		<div>
 			<table>
 				<tr>
