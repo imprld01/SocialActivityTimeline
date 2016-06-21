@@ -1,13 +1,6 @@
 package com.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Hashtable;
-import java.util.Map;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import java.util.*;
 
 public class DataAnalysis{
 
@@ -61,14 +54,14 @@ public class DataAnalysis{
 		return list.get(k-1);
 	}
 	
-	public Hashtable<Applicant, ArrayList<Event>> calWhoAndWhoseEvent(ApplyProcess ap, EventProcess ep, ArrayList<Event> master, ArrayList<Event> eventFilter){
+	public Hashtable<Applicant, ArrayList<Event>> calWhoAndWhoseEvent(ApplicantProcess ap, EventProcess ep, ArrayList<Event> master, ArrayList<Event> eventFilter){
 		
 		ArrayList<Type> myEventType = new ArrayList<Type>();
 		for(Event e : master){
 			Type thetype = e.getType();
 			if(!myEventType.contains(thetype)) myEventType.add(thetype);
 		}
-		
+
 		Hashtable<Applicant, ArrayList<Event>> table = new Hashtable<Applicant, ArrayList<Event>>();
 		for(Event e : master){
 			if(eventFilter.contains(e)) continue;
@@ -106,7 +99,7 @@ public class DataAnalysis{
 		return l;
     }
 	
-	public String RelationAnalysis(ApplyProcess ap, EventProcess ep, String kwd, ArrayList<Event> mainevents, Hashtable<Applicant, ArrayList<Event>> table){
+	public String RelationAnalysis(ApplicantProcess ap, EventProcess ep, String kwd, ArrayList<Event> mainevents, Hashtable<Applicant, ArrayList<Event>> table){
 		
 		ArrayList<RelationLink> rls = new ArrayList<RelationLink>();
 		ArrayList<String> elements = new ArrayList<String>();
@@ -115,9 +108,10 @@ public class DataAnalysis{
 		Hashtable<Applicant, ArrayList<Event>> maintable = this.calWhoAndWhoseEvent(ap, ep, mainevents, new ArrayList<Event>());
 		
 		ArrayList<Map.Entry<Applicant, Integer>> mainArray = sortRlationTable(tableConvert(maintable));
-		for(int i = 0; i < 5; ++i){
+		for(int i = 0; i < 2; ++i){
 			Map.Entry<Applicant, Integer> pair = mainArray.get(i);
 			Applicant akey = pair.getKey();
+			System.out.println(akey);
 			table.put(akey, maintable.get(akey));
 		}
 		

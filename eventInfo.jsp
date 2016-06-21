@@ -1,6 +1,5 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
-<%@ page import="java.util.*" %>
-<%@ page import="com.model.*" %>
+<%@ page import="com.model.Event" %>
 <html>
 <meta charset="UTF-8">
 <head>
