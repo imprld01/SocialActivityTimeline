@@ -72,7 +72,7 @@
 	<!-- Banner -->
 			<section id="banner">
 				<a href = "Index.do"><h2 style = "background-color: black; padding: 15px;">活動抓抓</h2></a>
-				<p>Activity Gather</p>
+				<p>English Name Here</p>
 				<p>- 活動串聯你我他 彼此距離不下線 -</p>
 			</section>		
 			
@@ -84,7 +84,7 @@
 	
 	<section>
 		
-		<form method="get" action="Index.do" style = "background-color: lightgray; padding: 50px; padding-bottom: 65px;" >
+		<form method="get" action="/Index.do" style = "background-color: lightgray; padding: 50px; padding-bottom: 65px;" >
 			<br><div class="row uniform 100%">
 				
 				<div class="12u$ 12u$(xlarge)" align="center">
@@ -112,7 +112,7 @@
     <div id='timeline-embed' style="width: 100%; height: 900px"></div>
     <!-- 3 -->
     <script type="text/javascript">
-	var obj = <%= (String)request.getAttribute("TLJsonFile") %>;
+	var obj = <%=(String)request.getAttribute("TLJsonFile")%>;		
 		
 		var additionalOptions = {
             start_at_end: true,

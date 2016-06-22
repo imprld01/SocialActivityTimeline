@@ -12,7 +12,7 @@
 		<script></script>
     </head>
     <body>
-		<p>Wrong Password~</p>
-		<% response.setHeader("Refresh", "1;url=Index.do"); %>
+		<p>Åç¥¿¿ù»~</p>
+		<% response.setHeader("Refresh", "1;url=Certificate.do"); %>
     </body>
 </html>

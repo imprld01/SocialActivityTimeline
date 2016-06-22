@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		 version="3.0"
 		 metadata-complete="true">
-
-
+		 
 	<servlet>
-		<servlet-name>IndexServlet</servlet-name>
+		<servlet-name>IndexServlet</servlet-name>	
 		<servlet-class>com.web.IndexServlet</servlet-class>
 	</servlet>
-
+        
 	<servlet-mapping>
-		<servlet-name>IndexServlet</servlet-name>
-		<url-pattern>/Index.do</url-pattern>
+		<servlet-name>IndexServlet</servlet-name>  
+		<url-pattern>/Index.do</url-pattern>	
 	</servlet-mapping>
-
+	
 	<servlet>
 		<servlet-name>CertificateServlet</servlet-name>
 		<servlet-class>com.web.CertificateServlet</servlet-class>
 	</servlet>
-
+        
 	<servlet-mapping>
-		<servlet-name>CertificateServlet</servlet-name>
+		<servlet-name>CertificateServlet</servlet-name> 
 		<url-pattern>/Certificate.do</url-pattern>
 	</servlet-mapping>
 
@@ -30,80 +29,68 @@
 		<servlet-name>RelationServlet</servlet-name>
 		<servlet-class>com.web.RelationServlet</servlet-class>
 	</servlet>
-
+        
 	<servlet-mapping>
-		<servlet-name>RelationServlet</servlet-name>
+		<servlet-name>RelationServlet</servlet-name> 
 		<url-pattern>/Relation.do</url-pattern>
 	</servlet-mapping>
-
+	
 	<servlet>
-		<servlet-name>InsertServlet</servlet-name>
+		<servlet-name>InsertServlet</servlet-name>	
 		<servlet-class>com.web.InsertEventServlet</servlet-class>
 	</servlet>
-
+        
 	<servlet-mapping>
-		<servlet-name>InsertServlet</servlet-name>
-		<url-pattern>/InsertEvent.do</url-pattern>
+		<servlet-name>InsertServlet</servlet-name>  
+		<url-pattern>/InsertEvent.do</url-pattern>	
 	</servlet-mapping>
-
+	
 	<servlet>
-		<servlet-name>EventInfoServlet</servlet-name>
+		<servlet-name>EventInfoServlet</servlet-name>	
 		<servlet-class>com.web.EventInfoServlet</servlet-class>
 	</servlet>
-
+        
 	<servlet-mapping>
-		<servlet-name>EventInfoServlet</servlet-name>
-		<url-pattern>/EventInfo.do</url-pattern>
+		<servlet-name>EventInfoServlet</servlet-name>  
+		<url-pattern>/EventInfo.do</url-pattern>	
 	</servlet-mapping>
-
+	
 	<servlet>
-		<servlet-name>ImageServlet</servlet-name>
-		<servlet-class>com.web.ImageServlet</servlet-class>
+		<servlet-name>ApplyServlet</servlet-name>	
+		<servlet-class>com.web.ApplyServlet</servlet-class>
 	</servlet>
-
+        
 	<servlet-mapping>
-		<servlet-name>ImageServlet</servlet-name>
-		<url-pattern>/ImageServlet.do</url-pattern>
+		<servlet-name>ApplyServlet</servlet-name>  
+		<url-pattern>/Apply.do</url-pattern>	
 	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>ApplicantServlet</servlet-name>
-		<servlet-class>com.web.ApplicantServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>ApplicantServlet</servlet-name>
-		<url-pattern>/Applicant.do</url-pattern>
-	</servlet-mapping>
-
-
-	<welcome-file-list>
-		<welcome-file>Index.do</welcome-file>
-	</welcome-file-list>
-
+	
+	
+    <welcome-file-list>
+        <welcome-file>Index.do</welcome-file>
+    </welcome-file-list>
+ 
 
 	<context-param>
-		<param-name>EventFilePath</param-name>
-		<param-value>/WEB-INF/Event/Event.json</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>ApplicantFilePath</param-name>
-		<param-value>Applicant.json</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>PasswordFile</param-name>
-		<param-value>/WEB-INF/Event/Password.json</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>ImgPath</param-name>
-		<param-value>/WEB-INF/Event/</param-value>
+		<param-name>EFile</param-name>
+		<param-value>Event.json</param-value>
+		
+		<param-name>AFile</param-name>
+		<param-value>Applier.json</param-value>
+		
+		<param-name>PFile</param-name>
+		<param-value>password.json</param-value>
+		
 	</context-param>
 
 	<listener>
-		<listener-class>com.web.EventContextListener</listener-class>
+		<listener-class>
+			com.web.EventContextListener
+		</listener-class>
 	</listener>
 
-</web-app>
+	
+
+	
+
+ </web-app>
