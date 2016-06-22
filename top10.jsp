@@ -339,7 +339,7 @@ d3.svg.BubbleChart.define("central-click", function (options) {
   </head>
 	<body class="landing" style="font-family: 微軟正黑體;background: #000000">
 	<header id="header" class="alt">
-				<h1><strong><a href="#">Top 10</a></strong> by team 7 </h1>
+				<h1><strong><a href="#">Top 10</a></strong></h1>
 				<nav id="nav">
 					<ul>
 					
